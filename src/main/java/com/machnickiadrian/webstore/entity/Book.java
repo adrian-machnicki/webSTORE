@@ -14,7 +14,9 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotBlank;
+import javax.validation.Valid;
 
 @Entity
 @Table(name="books")
@@ -25,9 +27,10 @@ public class Book implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@NotBlank
+	@NotBlank(message="Title can not be empty")
 	private String title;
 	
+	@Digits(integer = 3, fraction=2)
 	private double price;
 
 	@ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.DETACH,
@@ -36,6 +39,7 @@ public class Book implements Serializable {
 			CascadeType.REFRESH })
 	@JoinTable(name = "books_authors", joinColumns = @JoinColumn(name = "book_id"),
 	inverseJoinColumns = @JoinColumn(name = "author_id"))
+	@Valid
 	private List<Author> authors;
 
 	@OneToOne(cascade = CascadeType.ALL)

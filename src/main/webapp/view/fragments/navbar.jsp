@@ -1,42 +1,70 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
-<nav
-	class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse">
-	<button class="navbar-toggler navbar-toggler-right hidden-lg-up" type="button" data-toggle="collapse"
-			data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-		<span class="navbar-toggler-icon"></span>
-	</button>
-	<a class="navbar-brand" href="${request.contextPath}/home">webSTORE</a>
 
-	<div class="collapse navbar-collapse" id="navbarsExampleDefault">
-		<ul class="navbar-nav mr-auto">
-			<li class="nav-item active">
-				<a class="nav-link" href="${request.contextPath}/home">Home <span class="sr-only">(current)</span></a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" href="${request.contextPath}/books/all">Books</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" href="/#">Profile</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" href="${request.contextPath}/admin">Admin</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" href="/#">Help</a>
-			</li>
-		</ul>
-		<ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
-			<li class="nav-item">
-				<a class="nav-link" href="${request.contextPath}/cart">Cart</a>
-			</li>
-		</ul>
-		
-		<form class="form-inline mt-2 mt-md-0">
-			<input class="form-control mr-sm-2" type="text" placeholder="Search book">
-			<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-		</form>
-	</div>
+<nav class="navbar navbar-dark navbar-expand-md sticky-top bg-dark flex-md-nowrap p-0">
+
+	<a class="navbar-brand col-sm-3 col-md-2 mr-0" href="${request.contextPath}/home">webSTORE - your book store</a>
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+			aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    
+	     <div class="collapse navbar-collapse" id="navbarCollapse">
+	    	<ul class="navbar-nav mr-auto">
+	    	
+	    		<li class="nav-item active">
+					<a class="nav-link" href="${request.contextPath}/home">Home <span class="sr-only">(current)</span></a>
+				</li>
+				
+				<li class="nav-item">
+					<a class="nav-link" href="${request.contextPath}/books/all">Books</a>
+				</li>
+				
+				<li class="nav-item">
+					<a class="nav-link" href="/#">Profile</a>
+				</li>
+				
+				<sec:authorize access="hasRole('ROLE_ADMIN')">
+					<li class="nav-item">
+						<a class="nav-link" href="${request.contextPath}/admin">Admin</a>
+					</li>
+				</sec:authorize>
+				
+				<li class="nav-item">
+					<a class="nav-link" href="${request.contextPath}/information">Help</a>
+				</li>
+	    	</ul>
+	    	
+	    	<ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
+				<li class="nav-item">
+					<a class="nav-link" href="${request.contextPath}/cart">Cart</a>
+				</li>
+			</ul>
+			
+			<sec:authorize access="isAnonymous()">
+		    	<ul class="navbar-nav px-3">
+	        		<li class="nav-item">
+						<a class="nav-link" href="${request.contextPath}/login">Login</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="${request.contextPath}/register">Sign up</a>
+					</li>
+	      		</ul>
+      		</sec:authorize>
+			
+			<sec:authorize access="isAuthenticated()">
+		    	<ul class="navbar-nav px-3">
+	        		<li class="nav-item text-nowrap">
+	          			<form action="${request.contextPath}/logout" method="post" id="logoutForm">
+	          				<input type="hidden"
+									name="${_csrf.parameterName}"
+									value="${_csrf.token}" />
+	          				<a href="javascript:void(null);" class="nav-link" onclick="submitLogout()">Logout</a>
+	          			</form>
+	        		</li>
+	      		</ul>
+      		</sec:authorize>
+      		
+	    </div>   
 </nav>
-

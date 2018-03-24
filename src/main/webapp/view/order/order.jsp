@@ -10,7 +10,7 @@
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	
-	<title>Books</title>
+	<title>Your cart</title>
 	
 	<link rel="icon" href="<c:url value="/resources/icons/book.ico" />">
 	<link rel="stylesheet" href="<c:url value="/resources/css/bootstrap.min.css" />">
@@ -26,67 +26,74 @@
 			
 			<main class="col-sm-8 offset-sm-2 col-md-8 offset-md-2 pt-3">
 				
+				<h3>ORDER ID: ${order.id}</h3>
+				<h3>Selected books:</h3>
+				
 				<div class="table-responsive">
+					<table class="table table-striped">
 					
-					<table class="table table-hover">
-
 						<thead>
 							<th>Title</th>
 							<th>Author</th>
-							<th>Price</th>
-							<th>Category</th>
-							<th>Add to cart</th>
+							<th>Unit price</th>
+							<th>Quantity</th>
+							<th>Amount</th>
 						</thead>
 						
 						<tbody>
-							<c:forEach var="book" items="${books}">
-								
-								<!-- Single book page url -->
-								<spring:url var="bookLink" value="/books">
-									<spring:param name="id" value="${book.id}" />
-								</spring:url>
-								
-								<!-- Add to cart url -->
-								<spring:url var="addToCartLink" value="/cart/add">
-									<spring:param name="bookId" value="${book.id}" />
-								</spring:url>
 							
+							<c:forEach var="record" items="${order.records}">
 								<tr>
+									<th scope="row">
+										${record.book.title}
+									</th>
+								
 									<td>
-										<a href="${bookLink}">
-											${book.title}
-										</a>
-									</td>
-									
-									<td>
-										<c:forEach var="author" items="${book.authors}" varStatus="status">
+										<c:forEach var="author" items="${record.book.authors}" varStatus="status">
 											${author.firstName} ${author.lastName}<!--
 											--><c:if test="${!status.last}">, </c:if>
 										</c:forEach>
+										<!-- AUTHORS -->
 									</td>
 									
 									<td>
-										<fmt:formatNumber value="${book.price}" type="number"
-											minFractionDigits="2" maxFractionDigits="2" /> zł
+										${record.price}
 									</td>
 									
 									<td>
+										${record.quantity}
 									</td>
 									
 									<td>
-										<a href="${addToCartLink}">
-											Add
-										</a>
-									</td>
-									
+										${record.amount}
+									</td>		
 								</tr>
 							</c:forEach>
-							
 						</tbody>
+							
+						<tfoot>
+							<tr>
+								<td colspan="3"></td>
+								
+								<td>
+									Sum:
+								</td>
+								
+								<td>
+									<b>${order.amount}</b>
+								</td>
+							</tr>
+						</tfoot>
 						
 					</table>
-					
 				</div>
+				
+				<p>
+					<c:url var="goToCheckoutForm" value="/order/checkout" />
+							
+					<a href="${goToCheckoutForm}" class="btn btn-info float-right" role="button">Checkout</a>
+				</p>
+				
 			</main>
 	
 		</div>

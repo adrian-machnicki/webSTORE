@@ -1,36 +1,65 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
-<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="icon" href="https://v4-alpha.getbootstrap.com/favicon.ico">
+<!DOCTYPE html>
+
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <title>Home</title>
 
+	<link rel="icon" href="<c:url value="/resources/icons/book.ico" />">
     <link rel="stylesheet" href="<c:url value="/resources/css/bootstrap.min.css" />">
 	<link rel="stylesheet" href="<c:url value="/resources/css/dashboard.css" />">
-	
-  <body>
+
+</head>
+<body>
    
-   <jsp:include page="${request.contextPath}/view/navbar"></jsp:include>
+	<jsp:include page="${request.contextPath}/view/navbar"></jsp:include>
 
-    <div class="container-fluid">
-      <div class="row">
+	<main role="main">
 
-        <main class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
-          <h1>Home</h1>
 
-          <section class="row text-center placeholders">
-          </section>
-          
-    	</main>
+		<div class="jumbotron">
+			<div class="container">
+  				<h1 class="display-3">Wanna a book? You've come to the right place!</h1>
+  				<p>This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
+  				<p><a class="btn btn-primary btn-lg" href="${request.contextPath}/books/all" role="button">Shop now »</a></p>
+  			</div>
+		</div>
 
-    <script src="<c:url value="/resources/js/jquery-3.3.1.min.js" />"></script>
+		<div class="container">
+ 
+			<div class="row">
+  				<div class="col-md-4">
+ 					<h2>Promotions</h2>
+ 					<p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+ 					<p><a class="btn btn-secondary" href="#" role="button">Check promotions »</a></p>
+  				</div>
+  				<div class="col-md-4">
+					<h2>Bestsellers</h2>
+					<p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+					<p><a class="btn btn-secondary" href="#" role="button">Check bestsellers »</a></p>
+  				</div>
+  				<div class="col-md-4">
+  					<h2>Book rankings</h2>
+  					<p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+  					<p><a class="btn btn-secondary" href="#" role="button">Check book rankings »</a></p>
+  				</div>
+			</div>
+
+  		<hr>
+
+		</div> <!-- /container -->
+
+	</main>
+
+    <script src="<c:url value="/resources/js/jquery-3.3.1.slim.min.js" />"></script>
 	<script src="<c:url value="/resources/js/tether.min.js" />"></script>
+	<script src="<c:url value="/resources/js/popper.min.js" />"></script>
 	<script src="<c:url value="/resources/js/bootstrap.min.js" />"></script>
-	<script src="<c:url value="/resources/js/ie10-viewport-bug-workaround.js" />"></script>
+	<script src="<c:url value="/resources/js/support.js" />"></script>
   
 </body></html>
-
