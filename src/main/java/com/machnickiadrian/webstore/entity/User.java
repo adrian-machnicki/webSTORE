@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -29,6 +30,15 @@ public class User implements Serializable {
 	@Size(min = 4, max = 25)
 	private String username;
 
+	@Column(name = "first_name")
+	private String firstName;
+
+	@Column(name = "second_name")
+	private String secondName;
+
+	@Column(name = "last_name")
+	private String lastName;
+
 	@NotBlank
 	private String password;
 
@@ -39,6 +49,11 @@ public class User implements Serializable {
 	@OneToMany(cascade = { CascadeType.ALL })
 	@JoinColumn(name = "username", referencedColumnName = "username")
 	private List<Role> roles;
+	
+	@OneToMany(mappedBy = "user",
+			cascade = {CascadeType.PERSIST, CascadeType.MERGE,
+			CascadeType.REFRESH, CascadeType.DETACH})
+	private List<Order> orders;
 
 	@OneToOne
 	@JoinColumn(name = "user_details_id")
@@ -60,6 +75,30 @@ public class User implements Serializable {
 
 	public void setUsername(String username) {
 		this.username = username;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getSecondName() {
+		return secondName;
+	}
+
+	public void setSecondName(String secondName) {
+		this.secondName = secondName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
 	public String getPassword() {
@@ -86,6 +125,14 @@ public class User implements Serializable {
 		this.roles = roles;
 	}
 
+	public List<Order> getOrders() {
+		return orders;
+	}
+
+	public void setOrders(List<Order> orders) {
+		this.orders = orders;
+	}
+
 	public UserDetails getUserDetails() {
 		return userDetails;
 	}
@@ -104,7 +151,7 @@ public class User implements Serializable {
 
 	@Override
 	public String toString() {
-		return String.format("User [id=%s, username=%s, roles=%s]", id, username, roles);
+		return String.format("User [id=%s, username=%s, firstName=%s, lastName=%s]", id, username, firstName, lastName);
 	}
 
 }

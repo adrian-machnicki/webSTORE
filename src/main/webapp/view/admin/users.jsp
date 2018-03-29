@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <!DOCTYPE html>
@@ -12,12 +10,11 @@
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	
-	<title>Books</title>
+	<title>Orders management</title>
 	
 	<link rel="icon" href="<c:url value="/resources/icons/book.ico" />">
 	<link rel="stylesheet" href="<c:url value="/resources/css/bootstrap.min.css" />">
 	<link rel="stylesheet" href="<c:url value="/resources/css/dashboard.css" />">
-	
 </head>
 <body>
 
@@ -25,82 +22,72 @@
 
 	<div class="container-fluid">
 		<div class="row">
+		
+			<jsp:include page="${request.contextPath}/view/admin-sidebar"></jsp:include>
 			
-			<main class="col-sm-8 offset-sm-2 col-md-8 offset-md-2 pt-3">
-			
+			<main class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
+				<h2>Users management</h2>
+				
+				
 				<form:form method="get">
 					<div class="form-group float-right">
 						<div class="form-inline float-right">
-							<input type="text" class="form-control" placeholder="Search book" name="search" />
+							<input type="text" class="form-control" placeholder="Id, username or city" name="search" />
 							<input type="submit" value="Search" class="btn btn-primary" />
 						</div>
 					</div>
 				</form:form>
 				
+				
 				<div class="table-responsive">
 					
 					<table class="table table-hover">
-
 						<thead>
-							<th>Title</th>
-							<th>Author</th>
-							<th>Price</th>
-							<th>Category</th>
-							<th>Add to cart</th>
+							<th>Id</th>
+							<th>Username</th>
+							<th>First name</th>
+							<th>Last name</th>
+							<th>Email</th>
+							<th>Address</th>
+							<th>City</th>
+							<th>Block/Unblock</th>
+							<th>Remove</th>
 						</thead>
 						
 						<tbody>
-							<c:forEach var="book" items="${books}">
-								
-								<!-- Single book page url -->
-								<spring:url var="bookLink" value="/books/book">
-									<spring:param name="id" value="${book.id}" />
-								</spring:url>
-								
-								<!-- Add to cart url -->
-								<spring:url var="addToCartLink" value="/cart/add">
-									<spring:param name="bookId" value="${book.id}" />
-								</spring:url>
+							<c:forEach var="user" items="${ users }">	
 							
+								<c:url var="blockOrUnblockUser" value="/admin/users/block-unblock">
+									<c:param name="id" value="${ user.id }" />
+								</c:url>
+								<c:url var="removeUser" value="/admin/users/remove">
+									<c:param name="id" value="${ user.id }" />
+								</c:url>
+													
 								<tr>
+									<td>${ user.id }</td>
+									<td>${ user.username }</td>
+									<td>${ user.firstName }</td>
+									<td>${ user.lastName }</td>
+									<td>${ user.email }</td>
+									<td>${ user.userDetails.address }</td>
+									<td>${ user.userDetails.city }</td>
 									<td>
-										<a href="${bookLink}">
-											${book.title}
+										<a href="${ blockOrUnblockUser }">
+											<c:if test="${ user.enabled == 1 }">
+												Block
+											</c:if>
+											<c:if test="${ user.enabled == 0 }">
+												Unblock
+											</c:if>
 										</a>
 									</td>
-									
 									<td>
-										<c:forEach var="author" items="${book.authors}" varStatus="status">
-											${author.firstName} ${author.lastName}<!--
-											--><c:if test="${!status.last}">, </c:if>
-										</c:forEach>
+										<a href="${ removeUser }">Remove</a>
 									</td>
-									
-									<td>
-										<fmt:formatNumber value="${book.price}" type="number"
-											minFractionDigits="2" maxFractionDigits="2" /> zł
-									</td>
-									
-									<td>
-									</td>
-									
-									<td>
-										<c:if test="${fn:contains(addedBooksIds, book.id)}">
-											<span class="text-muted">Added</span>
-										</c:if>	
-																	
-										<c:if test="${not fn:contains(addedBooksIds, book.id)}">
-											<a href="${addToCartLink}">
-												Add
-											</a>
-										</c:if>																
-									</td>
-									
 								</tr>
 							</c:forEach>
-							
 						</tbody>
-						
 					</table>
 					
 				</div>

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
@@ -9,7 +10,7 @@
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	
-	<title>Books</title>
+	<title>Books management</title>
 	
 	<link rel="icon" href="<c:url value="/resources/icons/book.ico" />">
 	<link rel="stylesheet" href="<c:url value="/resources/css/bootstrap.min.css" />">
@@ -30,6 +31,15 @@
 				<div class="table-responsive">
 					<input type="button" value="Add book" class="btn btn-primary"
 							onclick="window.location.href='books/add'" />
+							
+					<form:form method="get">
+						<div class="form-group float-right">
+							<div class="form-inline float-right">
+								<input type="text" class="form-control" placeholder="Search book" name="search" />
+								<input type="submit" value="Search" class="btn btn-primary" />
+							</div>
+						</div>
+					</form:form>
 					
 					<table class="table table-hover">
 						<thead>

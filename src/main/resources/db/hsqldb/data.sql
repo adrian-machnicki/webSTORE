@@ -1,11 +1,11 @@
 -- INSERT USER DETAILS
-INSERT INTO user_details VALUES (1, 'New York');
-INSERT INTO user_details VALUES (2, 'Tokyo');
+INSERT INTO user_details VALUES (1, '5th Avenue 255', 'New York');
+INSERT INTO user_details VALUES (2, 'Japanese Street', 'Tokyo');
 
 
 -- INSERT USERS
-INSERT INTO users VALUES (1, 'user', '$2a$10$XO8w6gPq2Rysd1PsAJCrBuLEozFylseNmCA/lD5X7SlkeoF816IBG', 'user@webstore.com', 1, 1);
-INSERT INTO users VALUES (2, 'admin', '$2a$10$ruJG.3IKT6bFpDrVUGj.zuVoZBR1KuGTQ/d78A8hKlBKCCRWXe0lW', 'admin@webstore.com', 2, 1);
+INSERT INTO users VALUES (1, 'user', 'Eric', NULL, 'Hanks', '$2a$10$XO8w6gPq2Rysd1PsAJCrBuLEozFylseNmCA/lD5X7SlkeoF816IBG', 'user@webstore.com', 1, 1);
+INSERT INTO users VALUES (2, 'admin', 'David', 'Ryan', 'Stewart', '$2a$10$ruJG.3IKT6bFpDrVUGj.zuVoZBR1KuGTQ/d78A8hKlBKCCRWXe0lW', 'admin@webstore.com', 2, 1);
 
 
 -- INSERT AUTHORITIES

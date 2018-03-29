@@ -6,12 +6,12 @@ import org.springframework.data.repository.Repository;
 
 import com.machnickiadrian.webstore.entity.Order;
 
-public interface OrderRepository extends Repository<Order, Long>   {
+public interface OrderRepository extends Repository<Order, Long> {
 	
 	Order findById(Long id);
 	
 	ArrayList<Order> findAll();
 	
-	Order save(Order order);
+	void save(Order order);
 
 }

@@ -58,8 +58,7 @@ public class UserDto {
 
 	@Override
 	public String toString() {
-		return String.format("UserDto [username=%s, password=%s, passwordConfirm=%s, email=%s]", username, password,
-				passwordConfirm, email);
+		return String.format("UserDto [username=%s, email=%s]", username, email);
 	}
 
 }

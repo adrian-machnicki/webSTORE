@@ -10,28 +10,46 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.machnickiadrian.webstore.entity.Book;
-import com.machnickiadrian.webstore.repository.BookRepository;
+import com.machnickiadrian.webstore.enums.NavbarTab;
+import com.machnickiadrian.webstore.exception.BookNotFoundException;
+import com.machnickiadrian.webstore.model.Cart;
+import com.machnickiadrian.webstore.service.BookService;
 
 @Controller
 @RequestMapping("/books")
 public class BookController {
 	
-	@Autowired
-	private BookRepository repository;
+	private static final String NAVBAR_TAB = "navbarTab";
 	
-	@GetMapping("/all")
-	public String listAllBooks(Model model) {
-		List<Book> books = repository.findAll();
+	@Autowired
+	private BookService bookService;
+	
+	@Autowired
+	private Cart cart;
+	
+	@GetMapping
+	public String getBooks(Model model, @RequestParam(defaultValue = "") String search) {
+		List<Book> books;
+		
+		if (search.equals(""))
+			books = bookService.findAll();
+		else
+			books = bookService.search(search);
+			
 		model.addAttribute("books", books);
+		model.addAttribute("addedBooksIds", cart.getAddedBooksIds());
+		model.addAttribute(NAVBAR_TAB, NavbarTab.BOOKS);
 		
 		return "books/books";
 	}
 	
-	@GetMapping
-	public String getBook(@RequestParam("id") Long id, Model model) {	
-		Book book = repository.findById(id);
-		model.addAttribute("book", book);
-		
+	@GetMapping("/book")
+	public String getBook(@RequestParam Long id, Model model) {	
+		Book book = bookService.findById(id);
+		if (book == null)
+			throw new BookNotFoundException();
+			
+		model.addAttribute("book", book);	
 		return "books/book";
 	}
 
