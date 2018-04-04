@@ -22,6 +22,11 @@ import com.machnickiadrian.webstore.model.Cart;
 import com.machnickiadrian.webstore.service.OrderService;
 import com.machnickiadrian.webstore.service.UserService;
 
+/**
+ * 
+ * @author Adrian Machnicki
+ *
+ */
 @Controller
 @RequestMapping("/order")
 public class OrderController {

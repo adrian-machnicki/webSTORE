@@ -1,5 +1,5 @@
-	<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <nav class="col-md-2 d-none d-md-block bg-light sidebar">
 	<div class="sidebar-sticky">
@@ -13,7 +13,8 @@
            					<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
            					<polyline points="9 22 9 12 15 12 15 22"></polyline>
            			</svg>
-           			Dashboard <span class="sr-only">(current)</span>
+           			<spring:message code="user.dashboard" />
+           			<span class="sr-only">(current)</span>
          		</a>
        		</li>
               
@@ -24,7 +25,7 @@
     						<path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path>
     						<polyline points="13 2 13 9 20 9"></polyline>
     				</svg>
-    				Your orders
+    				<spring:message code="user.orders" />
   				</a>
 			</li>
 			
@@ -36,7 +37,7 @@
     					<polyline points="2 17 12 22 22 17"></polyline>
     					<polyline points="2 12 12 17 22 12"></polyline>
     				</svg>
-    				Your books
+    				<spring:message code="user.books" />
   				</a>
 			</li>
 			
@@ -49,7 +50,7 @@
     						<path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
     						<path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
     				</svg>
-    				Profile
+    				<spring:message code="user.profile" />
   				</a>
 			</li>
 

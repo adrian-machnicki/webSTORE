@@ -1,5 +1,7 @@
 package com.machnickiadrian.webstore.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -8,16 +10,23 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+/**
+ * Entity representing one record/row in the order.
+ * 
+ * @author Adrian Machnicki
+ *
+ */
 @Entity
 @Table(name = "order_records")
-public class OrderRecord {
+public class OrderRecord implements Serializable {
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	private int quantity;
-	
+
 	private double price;
 
 	private double amount;

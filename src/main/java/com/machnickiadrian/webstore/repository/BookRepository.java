@@ -1,18 +1,19 @@
 package com.machnickiadrian.webstore.repository;
 
 import java.util.ArrayList;
-
-import org.springframework.data.repository.Repository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
 import com.machnickiadrian.webstore.entity.Book;
 
-public interface BookRepository extends Repository<Book, Long> {
-	
-	Book findById(Long id);
-	
-	ArrayList<Book> findAll();
+/**
+ * Repository class for <code>Book</code> objects.
+ * 
+ * @author Adrian Machnicki
+ *
+ */
+public interface BookRepository extends PagingAndSortingRepository<Book, Long> {
 
-	void save(Book book);
+	ArrayList<Book> findAll();
 
 	void deleteById(Long id);
 

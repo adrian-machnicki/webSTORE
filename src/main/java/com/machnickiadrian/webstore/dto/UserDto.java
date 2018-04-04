@@ -6,6 +6,13 @@ import javax.validation.constraints.Size;
 
 import com.machnickiadrian.webstore.validation.PasswordMatches;
 
+/**
+ * Data Transfer Object representing an user, used for processing registering
+ * new user with register-form.
+ * 
+ * @author Adrian Machnicki
+ *
+ */
 @PasswordMatches
 public class UserDto {
 

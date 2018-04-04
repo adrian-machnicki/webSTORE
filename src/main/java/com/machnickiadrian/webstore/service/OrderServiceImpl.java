@@ -14,6 +14,13 @@ import org.springframework.transaction.annotation.Transactional;
 import com.machnickiadrian.webstore.entity.Order;
 import com.machnickiadrian.webstore.repository.OrderRepository;
 
+/**
+ * Implementation of <code>OrderService</code> interface. It's methods are
+ * transactional and secured with Spring Security and JSR-250.
+ * 
+ * @author Adrian Machnicki
+ *
+ */
 @Service
 public class OrderServiceImpl implements OrderService {
 	

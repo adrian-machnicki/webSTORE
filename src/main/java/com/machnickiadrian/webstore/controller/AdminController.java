@@ -8,6 +8,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.machnickiadrian.webstore.enums.AdminTab;
 import com.machnickiadrian.webstore.enums.NavbarTab;
 
+/**
+ * 
+ * @author Adrian Machnicki
+ *
+ */
 @Controller
 @RequestMapping("/admin")
 public class AdminController {

@@ -9,11 +9,13 @@
 
 <html>
 <head>
+	<meta name="author" content="Adrian Machnicki">
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<title>Your cart</title>
+	<title><spring:message code="cart.pageTitle" /></title>
 	
 	<link rel="icon" href="<c:url value="/resources/icons/book.ico" />">
+	<link rel="stylesheet" href="<c:url value="/resources/css/open-iconic-bootstrap.css" />" />
 	<link rel="stylesheet" href="<c:url value="/resources/css/bootstrap.min.css" />">
 	<link rel="stylesheet" href="<c:url value="/resources/css/dashboard.css" />">
 	
@@ -31,11 +33,26 @@
 					<div class="table-responsive">
 						<table class="table table-hover">
 							<thead>
-								<th>Title</th>
-								<th>Author</th>
-								<th>Unit price</th>
-								<th>Quantity</th>
-								<th>Remove from cart</th>
+							
+								<th>
+									<spring:message code="cart.title" />
+								</th>
+								
+								<th>
+									<spring:message code="cart.author" />
+								</th>
+								
+								<th>
+									<spring:message code="cart.unitPrice" />
+								</th>
+								
+								<th>
+									<spring:message code="cart.quantity" />
+								</th>
+								
+								<th>
+									<spring:message code="cart.removeFromCart" />
+								</th>
 							</thead>
 	
 							<tbody>
@@ -57,8 +74,8 @@
 										</td>
 										
 										<td>
-											<fmt:formatNumber value="${record.book.price}" type="number"
-												minFractionDigits="2" maxFractionDigits="2" /> zł
+											$<fmt:formatNumber value="${record.book.price}" type="number"
+												minFractionDigits="2" maxFractionDigits="2" />
 										</td>
 										
 										<td>
@@ -74,7 +91,9 @@
 										</td>
 										 
 										<td>
-											<a href="${removeUrl}">Remove</a>
+											<a href="${removeUrl}">
+												<spring:message code="cart.remove" />
+											</a>
 										</td>
 									
 									</tr>					
@@ -84,10 +103,12 @@
 							<tfoot>
 								<tr>
 									<td colspan="3"></td>
-									<td><b>Sum:</b></td>
 									<td>
-										<fmt:formatNumber value="${cart.finalPrice}" type="number"
-												minFractionDigits="2" maxFractionDigits="2" /> zł
+										<b><spring:message code="cart.sum" />:</b>
+									</td>
+									<td>
+										$<fmt:formatNumber value="${cart.finalPrice}" type="number"
+												minFractionDigits="2" maxFractionDigits="2" />
 									</td>
 								</tr>
 							</tfoot>
@@ -97,7 +118,9 @@
 				</c:if>
 				
 				<c:if test="${ empty cart.books }">
-					<h3>Your cart is empty.</h3>
+					<h3>
+						<spring:message code="cart.emptyCart" />
+					</h3>
 				</c:if>
 				
 				
@@ -108,12 +131,18 @@
 						<c:url var="goToCheckoutFormGuest" value="order/checkout/guest" />
 
 						<sec:authorize access="isAuthenticated()">
-							<a href="${goToCheckoutFormLogged}" class="btn btn-info" role="button">Buy</a>		
+							<a href="${goToCheckoutFormLogged}" class="btn btn-info" role="button">
+								<spring:message code="cart.buy" />
+							</a>		
 						</sec:authorize>
 
 						<sec:authorize access="isAnonymous()">
-							<a href="${goToCheckoutFormLogged}" class="btn btn-info" role="button">Buy as logged user</a>
-							<a href="${goToCheckoutFormGuest}" class="btn btn-info" role="button">Buy as guest</a>		
+							<a href="${goToCheckoutFormLogged}" class="btn btn-info" role="button">
+								<spring:message code="cart.buyAsLogged" />
+							</a>
+							<a href="${goToCheckoutFormGuest}" class="btn btn-info" role="button">
+								<spring:message code="cart.buyAsGuest" />							
+							</a>		
 						</sec:authorize>
 
 					</p>

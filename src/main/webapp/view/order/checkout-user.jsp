@@ -9,12 +9,14 @@
 
 <html>
 <head>
+	<meta name="author" content="Adrian Machnicki">
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	
-	<title>Checkout</title>
+	<title><spring:message code="checkout.pageTitle" /></title>
 	
 	<link rel="icon" href="<c:url value="/resources/icons/book.ico" />">
+	<link rel="stylesheet" href="<c:url value="/resources/css/open-iconic-bootstrap.css" />" />
 	<link rel="stylesheet" href="<c:url value="/resources/css/bootstrap.min.css" />">
 	<link rel="stylesheet" href="<c:url value="/resources/css/dashboard.css" />">
 	<link rel="stylesheet" href="<c:url value="/resources/css/form-validation.css" />">
@@ -27,15 +29,21 @@
 
 	<div class="container">
 		<div class="py-5 text-center">
-  			<h2>Checkout form</h2>
-  			<p class="lead">Verify whether there is everything okay.</p>
+  			<h2>
+  				<spring:message code="checkout.header" />
+  			</h2>
+  			<p class="lead">
+  				<spring:message code="checkout.prompt" />
+  			</p>
 		</div>
 
 		<div class="row">
   			<div class="col-md-4 order-md-2 mb-4">
   			
  				<h4 class="d-flex justify-content-between align-items-center mb-3">
-   					<span class="text-muted">Your cart</span>
+   					<span class="text-muted">
+   						<spring:message code="checkout.yourCart" />
+   					</span>
    					<span class="badge badge-secondary badge-pill">${fn:length(order.records)}</span>
  				</h4>
  				
@@ -55,42 +63,29 @@
 	       						
 	     					</div>
 	     					<span class="text-muted">
-	     						<fmt:formatNumber value="${record.price}" type="number"
-											minFractionDigits="2" maxFractionDigits="2" /> zł
+	     						$<fmt:formatNumber value="${record.price}" type="number"
+											minFractionDigits="2" maxFractionDigits="2" />
 	     					</span>
 	   					</li>
    					</c:forEach>
        				
-       				<li class="list-group-item d-flex justify-content-between bg-light">
-         				<div class="text-success">
-           					<h6 class="my-0">Promo code</h6>
-           					<small>EXAMPLECODE</small>
-         				</div>
-         				<span class="text-success">-$5</span>
-       				</li>
-       				
        				<li class="list-group-item d-flex justify-content-between">
-         				<span>Total (PLN)</span>
+         				<span>
+         					<spring:message code="checkout.total" />
+         				</span>
          				<strong>
-         					<fmt:formatNumber value="${order.amount}" type="number"
-											minFractionDigits="2" maxFractionDigits="2" /> zł
+         					$<fmt:formatNumber value="${order.amount}" type="number"
+											minFractionDigits="2" maxFractionDigits="2" />
          				</strong>
        				</li>
      			</ul>
-
-     			<form class="card p-2">
-       				<div class="input-group">
-         				<input type="text" class="form-control" placeholder="Promo code">
-         				<div class="input-group-append">
-           					<button type="submit" class="btn btn-secondary">Redeem</button>
-         				</div>
-       				</div>
-     			</form>
    			</div>
    			
    			
    			<div class="col-md-8 order-md-1">
-     			<h4 class="mb-3">Billing address</h4>
+     			<h4 class="mb-3">
+     				<spring:message code="checkout.billingAddress" />
+     			</h4>
      			
      			<form:form modelAttribute="user" method="post">
      				<form:hidden path="id" />
@@ -100,7 +95,9 @@
 	       			<div class="row">
 	       			
 	         			<div class="col-md-6 mb-3">
-	           				<label for="firstName">First name</label>
+	           				<label for="firstName">
+	           					<spring:message code="checkout.firstName" />
+	           				</label>
 	           				<form:input path="firstName" id="firstName"
 	           							cssClass="form-control" cssErrorClass="form-control is-invalid"
 	           							placeholder="First name" readonly="true" />
@@ -108,7 +105,12 @@
 	         			</div>
 	         			
 	         			<div class="col-md-6 mb-3">
-	           				<label for="secondName">Second name <span class="text-muted">(Optional)</span></label>
+	           				<label for="secondName">
+	           					<spring:message code="checkout.secondName" />
+	           					<span class="text-muted">
+	           						<spring:message code="checkout.optional" />
+	           					</span>
+	           				</label>
 	           				<form:input path="secondName" id="secondName"
 	           							cssClass="form-control" cssErrorClass="form-control is-invalid"
 	           							readonly="true" />
@@ -117,7 +119,9 @@
 	       			</div>
 	       			
 	       			<div class="mb-3">
-	         			<label for="lastName">Last name</label>
+	         			<label for="lastName">
+	         				<spring:message code="checkout.lastName" />
+	         			</label>
 	         				<div class="input-group">
 	           					<form:input path="lastName" id="lastName"
 	           								cssClass="form-control" cssErrorClass="form-control is-invalid"
@@ -127,7 +131,9 @@
 	        		</div>
 	
 	        		<div class="mb-3">
-	          			<label for="email">Email</label>
+	          			<label for="email">
+	          				<spring:message code="checkout.email" />
+	          			</label>
        					<form:input path="email" id="email"
        								cssClass="form-control" cssErrorClass="form-control is-invalid"
        								placeholder="Email" readonly="true" />
@@ -135,7 +141,9 @@
 	        		</div>
 	
 	        		<div class="mb-3">
-	          			<label for="address">Address</label>
+	          			<label for="address">
+	          				<spring:message code="checkout.address" />
+	          			</label>
 	          			<form:input path="userDetails.address" id="address"
 	          						cssClass="form-control" cssErrorClass="form-control is-invalid"
 	          						placeholder="Address" readonly="true" />
@@ -143,7 +151,9 @@
 	        		</div>
 	        		
 	        		<div class="mb-3">
-	          			<label for="city">City</label>
+	          			<label for="city">
+	          				<spring:message code="checkout.city" />
+	          			</label>
 	          			<form:input path="userDetails.city" id="city"
 	          						cssClass="form-control" cssErrorClass="form-control is-invalid"
 	          						placeholder="City" readonly="true" />
@@ -151,7 +161,9 @@
 	        		</div>
 	        		
 	        		<hr class="mb-4">
-	        		<button class="btn btn-primary btn-lg btn-block" type="submit">Place order</button>
+	        		<button class="btn btn-primary btn-lg btn-block" type="submit">
+	        			<spring:message code="checkout.placeOrder" />
+	        		</button>
 	        		
       			</form:form>
       			

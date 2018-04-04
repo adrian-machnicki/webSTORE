@@ -21,6 +21,11 @@ import com.machnickiadrian.webstore.entity.Book;
 import com.machnickiadrian.webstore.enums.AdminTab;
 import com.machnickiadrian.webstore.service.BookService;
 
+/**
+ * 
+ * @author Adrian Machnicki
+ *
+ */
 @Controller
 @RequestMapping("/admin/books")
 public class AdminBooksController {
@@ -55,7 +60,7 @@ public class AdminBooksController {
 			model.addAttribute("book", book);
 		}
 
-		return "admin/add-book";
+		return "admin/add-update-book";
 	}
 
 	@PostMapping(value = { "/add/addAuthor" })
@@ -69,7 +74,7 @@ public class AdminBooksController {
 	@PostMapping("/add")
 	public String addBook(@ModelAttribute @Valid Book book, BindingResult bindingResult) {
 		if (bindingResult.hasErrors())
-			return "admin/add-book";
+			return "admin/add-update-book";
 			
 		bookService.save(book);
 		
@@ -81,11 +86,11 @@ public class AdminBooksController {
 		Book book = bookService.findById(id);
 		model.addAttribute("book", book);
 
-		return "admin/add-book";
+		return "admin/add-update-book";
 	}
 
 	@PostMapping("/update")
-	public String updateBook(@ModelAttribute Book book, BindingResult bindingResult) {
+	public String updateBook(@ModelAttribute(name="book") Book book, BindingResult bindingResult) {
 		bookService.save(book);
 
 		return "redirect:/admin/books";

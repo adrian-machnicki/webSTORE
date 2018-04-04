@@ -1,5 +1,7 @@
 package com.machnickiadrian.webstore.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,9 +13,16 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+/**
+ * Entity representing an order's shipping details.
+ * 
+ * @author adrian.machnicki
+ *
+ */
 @Entity
 @Table(name = "shipping_details")
-public class ShippingDetails {
+public class ShippingDetails implements Serializable {
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

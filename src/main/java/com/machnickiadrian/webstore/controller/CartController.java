@@ -12,6 +12,11 @@ import com.machnickiadrian.webstore.enums.NavbarTab;
 import com.machnickiadrian.webstore.model.Cart;
 import com.machnickiadrian.webstore.service.BookService;
 
+/**
+ * 
+ * @author Adrian Machnicki
+ *
+ */
 @Controller
 @RequestMapping("/cart")
 public class CartController {

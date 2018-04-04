@@ -13,6 +13,11 @@ import com.machnickiadrian.webstore.entity.User;
 import com.machnickiadrian.webstore.enums.AdminTab;
 import com.machnickiadrian.webstore.service.UserService;
 
+/**
+ * 
+ * @author Adrian Machnicki
+ *
+ */
 @Controller
 @RequestMapping("/admin/users")
 public class AdminUsersController {

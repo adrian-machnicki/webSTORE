@@ -11,6 +11,12 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+/**
+ * Security configuration.
+ * 
+ * @author Adrian Machnicki
+ *
+ */
 @Configuration
 @EnableGlobalMethodSecurity(jsr250Enabled = true,
 							prePostEnabled = true)
@@ -39,12 +45,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.rememberMe()
 				.tokenValiditySeconds(1814400)
 				.key("webstoreKey");
-
 	}
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-
 		auth.jdbcAuthentication().dataSource(dataSource);
 	}
 

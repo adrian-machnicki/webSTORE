@@ -9,12 +9,14 @@
 
 <html>
 <head>
+	<meta name="author" content="Adrian Machnicki">
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	
-	<title>Confirmation</title>
+	<title><spring:message code="confirmation.pageTitle" /></title>
 	
 	<link rel="icon" href="<c:url value="/resources/icons/book.ico" />">
+	<link rel="stylesheet" href="<c:url value="/resources/css/open-iconic-bootstrap.css" />" />
 	<link rel="stylesheet" href="<c:url value="/resources/css/bootstrap.min.css" />">
 	<link rel="stylesheet" href="<c:url value="/resources/css/dashboard.css" />">
 	
@@ -26,8 +28,13 @@
 	<main role="main" class="container">
 
 		<div>
-			<h1>Order id: ${orderId}</h1>
-			<p class="lead">Your order with id ${orderId} was successfully placed.</p>
+			<h1>
+				<spring:message code="confirmation.header" />
+				${orderId}
+			</h1>
+			<p class="lead">
+				<spring:message code="confirmation.confirmation" />
+			</p>
 		</div>
 
 	</main>

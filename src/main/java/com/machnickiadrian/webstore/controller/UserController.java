@@ -24,6 +24,11 @@ import com.machnickiadrian.webstore.exception.EmailExistsException;
 import com.machnickiadrian.webstore.exception.UsernameExistsException;
 import com.machnickiadrian.webstore.service.UserServiceImpl;
 
+/**
+ * 
+ * @author Adrian Machnicki
+ *
+ */
 @Controller
 public class UserController {
 	

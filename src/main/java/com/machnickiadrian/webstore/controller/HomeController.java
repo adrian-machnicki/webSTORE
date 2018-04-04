@@ -6,6 +6,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import com.machnickiadrian.webstore.enums.NavbarTab;
 
+/**
+ * 
+ * @author Adrian Machnicki
+ *
+ */
 @Controller
 public class HomeController {
 

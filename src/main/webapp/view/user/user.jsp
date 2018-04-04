@@ -1,16 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <!DOCTYPE html>
 
 <html>
 <head>
+	<meta name="author" content="Adrian Machnicki">
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	
-	<title>Admin Panel</title>
+	<title><spring:message code="user.pageTitle" /></title>
 	
 	<link rel="icon" href="<c:url value="/resources/icons/book.ico" />">
+	<link rel="stylesheet" href="<c:url value="/resources/css/open-iconic-bootstrap.css" />" />
 	<link rel="stylesheet" href="<c:url value="/resources/css/bootstrap.min.css" />">
 	<link rel="stylesheet" href="<c:url value="/resources/css/dashboard.css" />">
 	
@@ -32,7 +35,9 @@
 				<!-- EXAMPLE CONTENT START -->
 					
 					<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-            			<h1 class="h2">Dashboard</h1>
+            			<h1 class="h2">
+            				<spring:message code="user.dashboard" />
+            			</h1>
             			<div class="btn-toolbar mb-2 mb-md-0">
               				<div class="btn-group mr-2">
                 				<button class="btn btn-sm btn-outline-secondary">Share</button>

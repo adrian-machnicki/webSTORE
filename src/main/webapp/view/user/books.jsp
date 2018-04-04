@@ -1,17 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <!DOCTYPE html>
 
 <html>
 <head>
+	<meta name="author" content="Adrian Machnicki">
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	
-	<title>Your profile</title>
+	<title><spring:message code="user.books.pageTitle" /></title>
 	
 	<link rel="icon" href="<c:url value="/resources/icons/book.ico" />">
+	<link rel="stylesheet" href="<c:url value="/resources/css/open-iconic-bootstrap.css" />" />
 	<link rel="stylesheet" href="<c:url value="/resources/css/bootstrap.min.css" />">
 	<link rel="stylesheet" href="<c:url value="/resources/css/dashboard.css" />">
 	
@@ -60,7 +63,9 @@
 				</c:if>
 				
 				<c:if test="${ empty books }">
-					<h3>You have not bought any books yet.</h3>
+					<h3>
+						<spring:message code="user.emptyBooks" />
+					</h3>
 				</c:if>
 
         	</main>

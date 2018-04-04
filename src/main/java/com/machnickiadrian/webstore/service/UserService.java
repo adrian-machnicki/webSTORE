@@ -5,6 +5,12 @@ import java.util.List;
 import com.machnickiadrian.webstore.dto.UserDto;
 import com.machnickiadrian.webstore.entity.User;
 
+/**
+ * Service interface for <code>User</code> objects manipulation.
+ * 
+ * @author Adrian Machnicki
+ *
+ */
 public interface UserService {
 	
 	void registerNewUser(UserDto userDto);

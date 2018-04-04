@@ -6,6 +6,12 @@ import org.springframework.data.repository.Repository;
 
 import com.machnickiadrian.webstore.entity.Role;
 
+/**
+ * Repository class for <code>Role</code> objects.
+ * 
+ * @author Adrian Machnicki
+ *
+ */
 public interface RoleRepository extends Repository<Role, Long> {
 
 	ArrayList<Role> findByUsername(String username);

@@ -9,12 +9,14 @@
 
 <html>
 <head>
+	<meta name="author" content="Adrian Machnicki">
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	
-	<title>Books</title>
+	<title><spring:message code="books.pageTitle" /></title>
 	
 	<link rel="icon" href="<c:url value="/resources/icons/book.ico" />">
+	<link rel="stylesheet" href="<c:url value="/resources/css/open-iconic-bootstrap.css" />" />
 	<link rel="stylesheet" href="<c:url value="/resources/css/bootstrap.min.css" />">
 	<link rel="stylesheet" href="<c:url value="/resources/css/dashboard.css" />">
 	
@@ -31,8 +33,10 @@
 				<form:form method="get">
 					<div class="form-group float-right">
 						<div class="form-inline float-right">
-							<input type="text" class="form-control" placeholder="Search book" name="search" />
-							<input type="submit" value="Search" class="btn btn-primary" />
+							<input type="text" class="form-control"
+								placeholder="<spring:message code="books.search" />" name="search" />
+							<input type="submit" class="btn btn-primary"
+								value="<spring:message code="books.searchSubmit" />" />
 						</div>
 					</div>
 				</form:form>
@@ -42,20 +46,29 @@
 					<table class="table table-hover">
 
 						<thead>
-							<th>Title</th>
-							<th>Author</th>
-							<th>Price</th>
-							<th>Category</th>
-							<th>Add to cart</th>
+							<th>
+								<spring:message code="books.title" />
+							</th>
+							
+							<th>
+								<spring:message code="books.author" />
+							</th>
+							
+							<th>
+								<spring:message code="books.price" />
+							</th>
+							
+							<th>
+								<spring:message code="books.addToCart" />
+							</th>
+							
 						</thead>
 						
 						<tbody>
 							<c:forEach var="book" items="${books}">
 								
 								<!-- Single book page url -->
-								<spring:url var="bookLink" value="/books/book">
-									<spring:param name="id" value="${book.id}" />
-								</spring:url>
+								<spring:url var="bookLink" value="/books/book/${book.id}" />
 								
 								<!-- Add to cart url -->
 								<spring:url var="addToCartLink" value="/cart/add">
@@ -77,21 +90,20 @@
 									</td>
 									
 									<td>
-										<fmt:formatNumber value="${book.price}" type="number"
-											minFractionDigits="2" maxFractionDigits="2" /> zł
-									</td>
-									
-									<td>
+										$<fmt:formatNumber value="${book.price}" type="number"
+											minFractionDigits="2" maxFractionDigits="2" />
 									</td>
 									
 									<td>
 										<c:if test="${fn:contains(addedBooksIds, book.id)}">
-											<span class="text-muted">Added</span>
+											<span class="text-muted">
+												<spring:message code="books.added" />
+											</span>
 										</c:if>	
 																	
 										<c:if test="${not fn:contains(addedBooksIds, book.id)}">
 											<a href="${addToCartLink}">
-												Add
+												<spring:message code="books.add" />
 											</a>
 										</c:if>																
 									</td>
@@ -102,6 +114,51 @@
 						</tbody>
 						
 					</table>
+					
+					<ul class="pagination justify-content-end">
+						<c:url var="previous" value="/books">
+							<c:param name="page" value="${currentPage-1}" />
+						</c:url>
+					
+						<c:if test="${currentPage > 1}">
+							<li class="page-item">
+								<a class="page-link" href="${previous}" aria-label="Previous">
+									<span aria-hidden="true">&laquo;</span>
+									<span class="sr-only">Previous</span>
+								</a>
+							</li>	
+						</c:if>
+						
+						<c:forEach begin="1" end="${maxPage}" step="1" varStatus="i">
+							<c:choose>
+							
+								<c:when test="${currentPage == i.index}">
+									<li class="page-item active"><a class="page-link" href="#">${currentPage}</a></li>
+								</c:when>
+								
+								<c:otherwise>
+									<c:url var="url" value="/books">
+										<c:param name="page" value="${i.index}" />
+									</c:url>
+									<li class="page-item"><a class="page-link" href="${url}">${i.index}</a></li>									
+								</c:otherwise>
+								
+							</c:choose>					
+						</c:forEach>
+						
+						<c:url var="next" value="/books">
+							<c:param name="page" value="${currentPage+1}" />
+						</c:url>
+						<c:if test="${currentPage+1 <= maxPage}">
+							<li class="page-item">
+								<a class="page-link" href="${next}" aria-label="Next">
+									<span aria-hidden="true">&raquo;</span>
+									<span class="sr-only">Next</span>
+								</a>
+							</li>
+						</c:if>
+
+					</ul>
 					
 				</div>
 			</main>

@@ -16,6 +16,13 @@ import com.machnickiadrian.webstore.entity.Order;
 import com.machnickiadrian.webstore.service.OrderService;
 import com.machnickiadrian.webstore.service.UserService;
 
+/**
+ * Basic aspects responsible for logging registering new users, placing new
+ * orders and deleting users.
+ * 
+ * @author Adrian Machnicki
+ *
+ */
 @Aspect
 @Component
 public class LoggerAspect {
@@ -78,4 +85,3 @@ public class LoggerAspect {
 	}
 	
 }
-

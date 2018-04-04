@@ -1,5 +1,6 @@
 package com.machnickiadrian.webstore.entity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -19,9 +20,16 @@ import javax.persistence.Table;
 import com.machnickiadrian.webstore.model.Cart;
 import com.machnickiadrian.webstore.model.CartRecord;
 
+/**
+ * Entity representing an order.
+ * 
+ * @author Adrian Machnicki
+ *
+ */
 @Entity
 @Table(name = "orders")
-public class Order {
+public class Order implements Serializable {
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

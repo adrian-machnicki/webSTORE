@@ -12,6 +12,13 @@ import org.springframework.stereotype.Component;
 
 import com.machnickiadrian.webstore.entity.Book;
 
+/**
+ * Object representing shop cart, to which user can add books before buying
+ * them.
+ * 
+ * @author Adrian Machnicki
+ *
+ */
 @Component
 @Scope(scopeName = "session", proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class Cart {

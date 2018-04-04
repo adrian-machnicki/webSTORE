@@ -7,6 +7,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.machnickiadrian.webstore.enums.NavbarTab;
 
+/**
+ * 
+ * @author Adrian Machnicki
+ *
+ */
 @Controller
 @RequestMapping("/information")
 public class InformationController {

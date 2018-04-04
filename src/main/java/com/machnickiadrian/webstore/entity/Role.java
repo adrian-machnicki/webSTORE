@@ -10,10 +10,16 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+/**
+ * Entity representing user role. They are used for security reasons.
+ * 
+ * @author adrian.machnicki
+ *
+ */
 @Entity
 @Table(name = "authorities")
 public class Role implements Serializable {
-	private static final long serialVersionUID = 2655703298041247026L;
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

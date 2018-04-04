@@ -14,14 +14,20 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.Valid;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotBlank;
-import javax.validation.Valid;
 
+/**
+ * Entity representing a book.
+ * 
+ * @author Adrian Machnicki
+ *
+ */
 @Entity
 @Table(name="books")
 public class Book implements Serializable {
-	private static final long serialVersionUID = 5825470293987589079L;
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,6 +48,7 @@ public class Book implements Serializable {
 	@Valid
 	private List<Author> authors;
 
+	@Valid
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "book_details_id")
 	private BookDetails details;
@@ -71,8 +78,6 @@ public class Book implements Serializable {
 	public void setPrice(double price) {
 		this.price = price;
 	}
-	
-	
 
 	public List<Author> getAuthors() {
 		return authors;

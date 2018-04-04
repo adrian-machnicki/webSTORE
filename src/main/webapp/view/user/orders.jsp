@@ -2,15 +2,17 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <!DOCTYPE html>
 
 <html>
 <head>
+	<meta name="author" content="Adrian Machnicki">
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	
-	<title>Your profile</title>
+	<title><spring:message code="user.orders.pageTitle" /></title>
 	
 	<link rel="icon" href="<c:url value="/resources/icons/book.ico" />">
 	<link rel="stylesheet" href="<c:url value="/resources/css/open-iconic-bootstrap.css" />" />
@@ -59,8 +61,8 @@
 										
 										<td>
 											<b>
-												<fmt:formatNumber value="${order.amount}" type="number"
-														minFractionDigits="2" maxFractionDigits="2" /> zł
+												$<fmt:formatNumber value="${order.amount}" type="number"
+														minFractionDigits="2" maxFractionDigits="2" />
 											</b>
 										</td>
 										
@@ -100,7 +102,7 @@
 											</td>
 											
 											<td>
-												<fmt:formatNumber value="${record.price}" type="number"
+												$<fmt:formatNumber value="${record.price}" type="number"
 														minFractionDigits="2" maxFractionDigits="2" />	
 											</td>
 											
@@ -118,7 +120,9 @@
 				</c:if>
 				
 				<c:if test="${ empty orders }">
-					<h3>You have not placed any orders yet.</h3>
+					<h3>
+						<spring:message code="user.emptyOrders" />
+					</h3>
 				</c:if>
 
         	</main>

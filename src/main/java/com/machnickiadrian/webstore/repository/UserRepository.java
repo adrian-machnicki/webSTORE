@@ -6,6 +6,12 @@ import org.springframework.data.repository.Repository;
 
 import com.machnickiadrian.webstore.entity.User;
 
+/**
+ * Repository class for <code>User</code> objects.
+ * 
+ * @author Adrian Machnicki
+ *
+ */
 public interface UserRepository extends Repository<User, Long> {
 
 	User findByUsername(String username);

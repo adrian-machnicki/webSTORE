@@ -7,12 +7,14 @@
 
 <html>
 <head>
+	<meta name="author" content="Adrian Machnicki">
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	
 	<title>Books management</title>
 	
 	<link rel="icon" href="<c:url value="/resources/icons/book.ico" />">
+	<link rel="stylesheet" href="<c:url value="/resources/css/open-iconic-bootstrap.css" />" />
 	<link rel="stylesheet" href="<c:url value="/resources/css/bootstrap.min.css" />">
 	<link rel="stylesheet" href="<c:url value="/resources/css/dashboard.css" />">
 </head>
@@ -83,8 +85,8 @@
 									</td>
 									
 									<td>
-										<fmt:formatNumber value="${book.price}" type="number"
-											minFractionDigits="2" maxFractionDigits="2" /> zł
+										$<fmt:formatNumber value="${book.price}" type="number"
+											minFractionDigits="2" maxFractionDigits="2" />
 									</td>
 									
 									<td>

@@ -7,6 +7,7 @@
 
 <html>
 <head>
+	<meta name="author" content="Adrian Machnicki">
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	
@@ -74,8 +75,8 @@
 									
 									<td>
 										<b>
-											<fmt:formatNumber value="${order.amount}" type="number"
-													minFractionDigits="2" maxFractionDigits="2" /> zł
+											$<fmt:formatNumber value="${order.amount}" type="number"
+													minFractionDigits="2" maxFractionDigits="2" />
 										</b>
 									</td>
 									
@@ -144,7 +145,7 @@
 										</td>
 										
 										<td>
-											<fmt:formatNumber value="${record.price}" type="number"
+											$<fmt:formatNumber value="${record.price}" type="number"
 														minFractionDigits="2" maxFractionDigits="2" />
 										</td>
 										

@@ -1,16 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <!DOCTYPE html>
 
 <html>
 <head>
+	<meta name="author" content="Adrian Machnicki">
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	
-	<title>Login</title>
+	<title><spring:message code="login.pageTitle" /></title>
 	
 	<link rel="icon" href="<c:url value="/resources/icons/book.ico" />">
+	<link rel="stylesheet" href="<c:url value="/resources/css/open-iconic-bootstrap.css" />" />
 	<link rel="stylesheet" href="<c:url value="/resources/css/bootstrap.min.css" />">
 	<link rel="stylesheet" href="<c:url value="/resources/css/signin.css" />">
 	<link rel="stylesheet" href="<c:url value="/resources/css/dashboard.css" />">
@@ -21,32 +24,40 @@
 	
 	<div id="login-form" class="text-center">
 		<form class="form-signin" method="post">
-	  		<img class="mb-4" src="<c:url value="/resources/bootstrap-solid.svg" />"
+	  		<img class="mb-4" src="<c:url value="/resources/icons/bootstrap-solid.svg" />"
 	  			alt="" width="72" height="72">
-	  		<h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+	  		<h1 class="h3 mb-3 font-weight-normal">
+	  			<spring:message code="login.prompt" />
+	  		</h1>
 	  		
 	  		<c:if test="${param.error != null}">
 		  		<div class="alert alert-danger" role="alert">
-		  			Invalid username or password.
+		  			<spring:message code="login.invalid" />
 				</div>
 	  		</c:if>
 	  		
 	  		<c:if test="${param.logout != null}">
 	  			<div class="alert alert-info" role="alert">
-	  				You have been logged out.
+	  				<spring:message code="login.loggedOut" />
 				</div>
 	  		</c:if>
 	  		
-	  		<label for="username" class="sr-only">Username</label>
+	  		<label for="username" class="sr-only">
+	  			<spring:message code="login.username" />
+	  		</label>
 	  		<input type="text" name="username" id="username" class="form-control"
-	  			placeholder="Username" required="true" autofocus="true">
+	  			placeholder="<spring:message code="login.username" />" autofocus="true" />
 	  		
-	  		<label for="password" class="sr-only">Password</label>
-	  		<input type="password" name="password" id="password" class="form-control" placeholder="Password" required="true">
+	  		<label for="password" class="sr-only">
+	  			<spring:message code="login.password" />
+	  		</label>
+	  		<input type="password" name="password" id="password" class="form-control"
+	  			placeholder="<spring:message code="login.password" />" />
 	  		
 	  		<div class="checkbox mb-3">
 	    		<label>
-	      			<input type="checkbox" value="remember-me"> Remember me
+	      			<input type="checkbox" value="remember-me">
+	      			<spring:message code="login.rememberMe" />
 	    		</label>
 	  		</div>
 	  		
@@ -54,7 +65,8 @@
 				name="${_csrf.parameterName}"
 				value="${_csrf.token}" />
 	  		
-	  		<input type="submit" class="btn btn-lg btn-primary btn-block" value="Sign in" />
+	  		<input type="submit" class="btn btn-lg btn-primary btn-block"
+	  			value="<spring:message code="login.submit" />" />
 	  		<p class="mt-5 mb-3 text-muted">©2018</p>
 		</form>
 	</div>

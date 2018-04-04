@@ -6,12 +6,14 @@
 
 <html>
 <head>
+	<meta name="author" content="Adrian Machnicki">
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	
-	<title>Books</title>
+	<title><spring:message code="book.pageTitle" /> ${book.title}</title>
 	
 	<link rel="icon" href="<c:url value="/resources/icons/book.ico" />">
+	<link rel="stylesheet" href="<c:url value="/resources/css/open-iconic-bootstrap.css" />" />
 	<link rel="stylesheet" href="<c:url value="/resources/css/bootstrap.min.css" />">
 	<link rel="stylesheet" href="<c:url value="/resources/css/dashboard.css" />">
 	
@@ -32,29 +34,36 @@
 				</p>
 				
 				<p>
-					Id: ${book.id}
+					<spring:message code="book.id" />
+					${book.id}
 				</p>
 				
 				<p>
-					Title: ${book.title}
+					<spring:message code="book.title" />
+					${book.title}
 				</p>
 				
 				<p>
+					<spring:message code="book.author" />
 					<c:forEach var="author" items="${book.authors}">
 						${author.firstName} ${author.lastName} 
 					</c:forEach>
 				</p>
 				
 				<p>
-					Pages: ${book.details.pages}
+					<spring:message code="book.pages" />
+					${book.details.pages}
 				</p>
 				
 				<p>
-					Description: ${book.details.description}
+					<spring:message code="book.description" />
+					${book.details.description}
 				</p>
 				
 				<p>
-					<a href="${addToCartLink}">Add to cart</a>
+					<a href="${addToCartLink}">
+						<spring:message code="book.addToCart" />
+					</a>
 				</p>
 
 			</main>

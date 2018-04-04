@@ -23,6 +23,13 @@ import com.machnickiadrian.webstore.exception.UsernameExistsException;
 import com.machnickiadrian.webstore.repository.RoleRepository;
 import com.machnickiadrian.webstore.repository.UserRepository;
 
+/**
+ * Implementation of <code>UserService</code> interface. It's methods are
+ * transactional and secured with Spring Security and JSR-250.
+ * 
+ * @author Adrian Machnicki
+ *
+ */
 @Service
 public class UserServiceImpl implements UserService {
 	

@@ -1,17 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <!DOCTYPE html>
 
 <html>
 <head>
+	<meta name="author" content="Adrian Machnicki">
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	
-	<title>Your profile</title>
+	<title><spring:message code="user.pageTitle" /></title>
 	
 	<link rel="icon" href="<c:url value="/resources/icons/book.ico" />">
+	<link rel="stylesheet" href="<c:url value="/resources/css/open-iconic-bootstrap.css" />" />
 	<link rel="stylesheet" href="<c:url value="/resources/css/bootstrap.min.css" />">
 	<link rel="stylesheet" href="<c:url value="/resources/css/dashboard.css" />">
 	
@@ -35,7 +38,9 @@
 						<form:hidden path="id" />
 					
 						<div class="form-group row">
-							<label for="firstName" class="col-sm-2 col-form-label">First name:</label>
+							<label for="firstName" class="col-sm-2 col-form-label">
+								<spring:message code="user.firstName" />
+							</label>
 							<div class="col-sm-10">
 								<form:input path="firstName" id="firstName"
 											cssClass="form-control" cssErrorClass="form-control is-invalid" />
@@ -45,8 +50,10 @@
 						
 						<div class="form-group row">
 							<label for="secondName" class="col-sm-2 col-form-label">
-								Second name:
-								<span class="text-muted">(Optional)</span>
+								<spring:message code="user.secondName" />
+								<span class="text-muted">
+									(<spring:message code="user.optional" />)
+								</span>
 							</label>
 							<div class="col-sm-10">
 								<form:input path="secondName" id="secondName"
@@ -56,7 +63,9 @@
 						</div>
 						
 						<div class="form-group row">
-							<label for="lastName" class="col-sm-2 col-form-label">Last name:</label>
+							<label for="lastName" class="col-sm-2 col-form-label">
+								<spring:message code="user.lastName" />
+							</label>
 							<div class="col-sm-10">
 								<form:input path="lastName" id="lastName"
 											cssClass="form-control" cssErrorClass="form-control is-invalid" />
@@ -67,7 +76,9 @@
 						<hr />
 						
 						<div class="form-group row">
-							<label for="address" class="col-sm-2 col-form-label">Address:</label>
+							<label for="address" class="col-sm-2 col-form-label">
+								<spring:message code="user.address" />
+							</label>
 							<div class="col-sm-10">
 								<form:input path="userDetails.address" id="address"
 											cssClass="form-control" cssErrorClass="form-control is-invalid" />
@@ -76,7 +87,9 @@
 						</div>
 						
 						<div class="form-group row">
-							<label for="city" class="col-sm-2 col-form-label">City:</label>
+							<label for="city" class="col-sm-2 col-form-label">
+								<spring:message code="user.city" />
+							</label>
 							<div class="col-sm-10">
 								<form:input path="userDetails.city" id="city"
 											cssClass="form-control" cssErrorClass="form-control is-invalid" />
@@ -87,7 +100,9 @@
 						<hr />
 						
 						<div class="form-group row">
-							<label for="city" class="col-sm-2 col-form-label">Email:</label>
+							<label for="city" class="col-sm-2 col-form-label">
+								<spring:message code="user.email" />
+							</label>
 							<div class="col-sm-10">
 								<form:input path="email" id="email"
 											cssClass="form-control" cssErrorClass="form-control is-invalid" />
@@ -97,7 +112,9 @@
 
 						<div class="form-group row">
 							<div class="col-sm-10">
-								<button type="submit" value="Save" class="btn btn-primary">Save</button>
+								<button type="submit" value="Save" class="btn btn-primary">
+									<spring:message code="user.saveProfile" />
+								</button>
 							</div>
 						</div>
 						

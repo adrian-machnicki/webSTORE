@@ -14,11 +14,18 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
+/**
+ * Entity representing an book author.
+ * 
+ * @author Adrian Machnicki
+ *
+ */
 @Entity
 @Table(name="authors")
 public class Author implements Serializable {
-	private static final long serialVersionUID = 7590979062559985192L;
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,10 +33,12 @@ public class Author implements Serializable {
 
 	@Column(name = "first_name")
 	@NotBlank(message="First name can not be empty")
+	@Size(max = 50)
 	private String firstName;
 
 	@Column(name = "last_name")
 	@NotBlank(message="Last name can not be empty")
+	@Size(max = 50)
 	private String lastName;
 	
 	@ManyToMany(fetch=FetchType.LAZY)

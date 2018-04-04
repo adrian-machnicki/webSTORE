@@ -14,6 +14,11 @@ import com.machnickiadrian.webstore.entity.Order;
 import com.machnickiadrian.webstore.enums.AdminTab;
 import com.machnickiadrian.webstore.service.OrderService;
 
+/**
+ * 
+ * @author Adrian Machnicki
+ *
+ */
 @Controller
 @RequestMapping("/admin/orders")
 public class AdminOrdersController {

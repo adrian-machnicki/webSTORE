@@ -7,11 +7,18 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
 
+/**
+ * Entity representing additional book's details.
+ * 
+ * @author Adrian Machnicki
+ *
+ */
 @Entity
 @Table(name="book_details")
 public class BookDetails implements Serializable {
-	private static final long serialVersionUID = 6899802832267265543L;
+	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,6 +26,7 @@ public class BookDetails implements Serializable {
 	
 	private int pages;
 	
+	@Size(max = 4096)
 	private String description;
 
 	public Long getId() {
