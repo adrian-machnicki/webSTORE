@@ -1,6 +1,8 @@
 package com.machnickiadrian.webstore.entity;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -58,10 +60,12 @@ public class Order implements Serializable {
 		records = new ArrayList<>();
 
 		OrderRecord orderRecord;
-		double orderAmount = 0;
+		BigDecimal orderAmount = BigDecimal.ZERO;
+		BigDecimal recordAmount = BigDecimal.ZERO;
 
 		for (CartRecord cartRecord : cart.getBooks()) {
-			orderAmount += cartRecord.getAmount();
+			recordAmount = BigDecimal.valueOf(cartRecord.getAmount());
+			orderAmount = orderAmount.add(recordAmount);
 
 			orderRecord = new OrderRecord();
 			orderRecord.setQuantity(cartRecord.getQuantity());
@@ -71,7 +75,7 @@ public class Order implements Serializable {
 			records.add(orderRecord);
 		}
 
-		this.amount = orderAmount;
+		this.amount = orderAmount.setScale(2, RoundingMode.HALF_UP).doubleValue();
 	}
 	
 	public void fillUsersShippingDetails(User user) {

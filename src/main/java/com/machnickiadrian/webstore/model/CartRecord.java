@@ -1,5 +1,8 @@
 package com.machnickiadrian.webstore.model;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 import com.machnickiadrian.webstore.entity.Book;
 
 /**
@@ -22,7 +25,10 @@ public class CartRecord {
 	}
 
 	public double getAmount() {
-		return this.quantity * this.book.getPrice();
+		BigDecimal bookQuantity = BigDecimal.valueOf(this.quantity);
+		BigDecimal bookPrice = BigDecimal.valueOf(this.book.getPrice());
+		BigDecimal amount = bookQuantity.multiply(bookPrice).setScale(2, RoundingMode.HALF_UP);
+		return amount.doubleValue();
 	}
 
 	public Book getBook() {
