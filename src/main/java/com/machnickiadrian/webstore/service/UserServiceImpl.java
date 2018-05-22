@@ -46,6 +46,9 @@ public class UserServiceImpl implements UserService {
 	private RoleRepository roleRepository;
 	
 	@Autowired
+	private EmailService emailService;
+	
+	@Autowired
 	private BCryptPasswordEncoder encoder;
 
 	@Transactional
@@ -61,6 +64,7 @@ public class UserServiceImpl implements UserService {
 
 		User user = createUserFromDto(userDto);
 		userRepository.save(user);
+		emailService.sendRegistrationConfirmation(user);
 	}
 	
 	@PostAuthorize("hasRole('ROLE_ADMIN') or returnObject.username == principal.username")

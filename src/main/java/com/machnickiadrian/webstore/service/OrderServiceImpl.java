@@ -28,6 +28,9 @@ public class OrderServiceImpl implements OrderService {
 	
 	@Autowired
 	private OrderRepository repository;
+	
+	@Autowired
+	private EmailService emailService;
 
 	@PostAuthorize("hasRole('ROLE_ADMIN') or returnObject.user.username == principal.username")
 	@Transactional(readOnly = true)
@@ -47,6 +50,7 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public void save(Order order) {
 		repository.save(order);
+		emailService.sendOrderConfirmation(order);
 	}
 
 	@RolesAllowed(ADMIN)

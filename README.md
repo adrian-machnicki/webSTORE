@@ -33,7 +33,8 @@ What you need to have installed:
 ```
 1. Clone or download the project to your computer.
 2. Import the project to the STS as 'Existing Maven Project'.
-3. Right click the project's name and select 'Run As' -> 'Spring Boot App'.
+3. Fill in fields required for email service in application.properties file [spring.mail.username, spring.mail.password].
+4. Right click the project's name and select 'Run As' -> 'Spring Boot App'.
 ```
 
 
