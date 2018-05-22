@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.machnickiadrian.webstore.entity.ShippingDetails;
+import com.machnickiadrian.webstore.dto.UserProfileDto;
 import com.machnickiadrian.webstore.entity.Order;
 import com.machnickiadrian.webstore.entity.User;
 import com.machnickiadrian.webstore.model.Cart;
@@ -49,7 +50,7 @@ public class OrderController {
 
 		User user = userService.findByUsername(principal.getName());
 		model.addAttribute("order", order);
-		model.addAttribute("user", user);
+		model.addAttribute("user", new UserProfileDto(user));
 		
 		return "order/checkout-user";		
 	}
@@ -67,11 +68,13 @@ public class OrderController {
 	}
 
 	@PostMapping("/checkout")
-	public String placeUserOrder(@ModelAttribute @Valid User user, BindingResult bindingResult, Model model) {
-		if (bindingResult.hasErrors())
+	public String placeUserOrder(@ModelAttribute("user") @Valid UserProfileDto userDto, BindingResult bindingResult, Model model) {
+		if (bindingResult.hasErrors()) {
+			model.addAttribute("order", order);
 			return "order/checkout-user";
+		}
 		
-		user = userService.findByUsername(user.getUsername());
+		User user = userService.findById(userDto.getId());
 
 		order.setUser(user);
 		order.fillUsersShippingDetails(user);

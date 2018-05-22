@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.machnickiadrian.webstore.dto.UserDto;
+import com.machnickiadrian.webstore.dto.UserProfileDto;
 import com.machnickiadrian.webstore.entity.Book;
 import com.machnickiadrian.webstore.entity.Order;
 import com.machnickiadrian.webstore.entity.OrderRecord;
@@ -82,16 +83,17 @@ public class UserController {
 	@GetMapping("/user/profile")
 	public String getProfile(Principal principal, Model model) {
 		User user = userService.findByUsername(principal.getName());
-		model.addAttribute("user", user);
+		model.addAttribute("user", new UserProfileDto(user));
 		
 		return "user/profile";
 	}
 	
 	@PostMapping("/user/profile")
-	public String saveProfile(@ModelAttribute User user, BindingResult bindingResult) {	
+	public String saveProfile(@ModelAttribute("user") @Valid UserProfileDto user, BindingResult bindingResult) {	
 		if (bindingResult.hasErrors())
 			return "user/profile";
 		
+		userService.save(user);		
 		return "redirect:/user/profile";
 	}
 	

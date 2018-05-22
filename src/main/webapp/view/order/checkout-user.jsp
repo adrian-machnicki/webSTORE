@@ -89,8 +89,6 @@
      			
      			<form:form modelAttribute="user" method="post">
      				<form:hidden path="id" />
-     				<form:hidden path="username" />
-     				<form:hidden path="password"/>
      				
 	       			<div class="row">
 	       			
@@ -144,20 +142,20 @@
 	          			<label for="address">
 	          				<spring:message code="checkout.address" />
 	          			</label>
-	          			<form:input path="userDetails.address" id="address"
+	          			<form:input path="address" id="address"
 	          						cssClass="form-control" cssErrorClass="form-control is-invalid"
 	          						placeholder="Address" readonly="true" />
-	          			<form:errors path="userDetails.address" cssClass="invalid-feedback" />
+	          			<form:errors path="address" cssClass="invalid-feedback" />
 	        		</div>
 	        		
 	        		<div class="mb-3">
 	          			<label for="city">
 	          				<spring:message code="checkout.city" />
 	          			</label>
-	          			<form:input path="userDetails.city" id="city"
+	          			<form:input path="city" id="city"
 	          						cssClass="form-control" cssErrorClass="form-control is-invalid"
 	          						placeholder="City" readonly="true" />
-	          			<form:errors path="userDetails.city" cssClass="invalid-feedback" />
+	          			<form:errors path="city" cssClass="invalid-feedback" />
 	        		</div>
 	        		
 	        		<hr class="mb-4">

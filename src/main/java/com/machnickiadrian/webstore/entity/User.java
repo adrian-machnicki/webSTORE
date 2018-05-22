@@ -61,7 +61,7 @@ public class User implements Serializable {
 			CascadeType.REFRESH, CascadeType.DETACH})
 	private List<Order> orders;
 
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "user_details_id")
 	private UserDetails userDetails;
 

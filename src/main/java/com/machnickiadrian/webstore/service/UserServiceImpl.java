@@ -15,9 +15,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.machnickiadrian.webstore.dto.UserDto;
+import com.machnickiadrian.webstore.dto.UserProfileDto;
 import com.machnickiadrian.webstore.entity.Order;
 import com.machnickiadrian.webstore.entity.Role;
 import com.machnickiadrian.webstore.entity.User;
+import com.machnickiadrian.webstore.entity.UserDetails;
 import com.machnickiadrian.webstore.exception.EmailExistsException;
 import com.machnickiadrian.webstore.exception.UsernameExistsException;
 import com.machnickiadrian.webstore.repository.RoleRepository;
@@ -60,6 +62,13 @@ public class UserServiceImpl implements UserService {
 		User user = createUserFromDto(userDto);
 		userRepository.save(user);
 	}
+	
+	@PostAuthorize("hasRole('ROLE_ADMIN') or returnObject.username == principal.username")
+	@Transactional(readOnly = true)
+	@Override
+	public User findById(Long id) {
+		return userRepository.findById(id);
+	}
 
 	@PostAuthorize("hasRole('ROLE_ADMIN') or returnObject.username == principal.username")
 	@Transactional(readOnly = true)
@@ -89,6 +98,21 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void save(User user) {
 		userRepository.save(user);
+	}
+	
+	public void save(UserProfileDto userProfileDto) {
+		User user = userRepository.findById(userProfileDto.getId());
+		user.setFirstName(userProfileDto.getFirstName());
+		user.setSecondName(userProfileDto.getSecondName());
+		user.setLastName(userProfileDto.getLastName());
+		user.setEmail(userProfileDto.getEmail());
+		
+		if (user.getUserDetails() == null)
+			user.setUserDetails(new UserDetails());
+		
+		user.getUserDetails().setAddress(userProfileDto.getAddress());
+		user.getUserDetails().setCity(userProfileDto.getCity());
+		save(user);
 	}
 	
 	@RolesAllowed(ADMIN)

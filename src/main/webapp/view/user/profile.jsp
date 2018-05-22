@@ -80,9 +80,9 @@
 								<spring:message code="user.address" />
 							</label>
 							<div class="col-sm-10">
-								<form:input path="userDetails.address" id="address"
+								<form:input path="address" id="address"
 											cssClass="form-control" cssErrorClass="form-control is-invalid" />
-								<form:errors path="userDetails.address" cssClass="invalid-feedback" />
+								<form:errors path="address" cssClass="invalid-feedback" />
 							</div>
 						</div>
 						
@@ -91,9 +91,9 @@
 								<spring:message code="user.city" />
 							</label>
 							<div class="col-sm-10">
-								<form:input path="userDetails.city" id="city"
+								<form:input path="city" id="city"
 											cssClass="form-control" cssErrorClass="form-control is-invalid" />
-								<form:errors path="userDetails.city" cssClass="invalid-feedback" />
+								<form:errors path="city" cssClass="invalid-feedback" />
 							</div>
 						</div>
 						
