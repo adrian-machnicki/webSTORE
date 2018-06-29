@@ -1,9 +1,9 @@
 package com.machnickiadrian.webstore.model;
 
+import com.machnickiadrian.webstore.dto.BookDto;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-
-import com.machnickiadrian.webstore.entity.Book;
 
 /**
  * Object representing one record/row in the shopping cart.
@@ -13,7 +13,7 @@ import com.machnickiadrian.webstore.entity.Book;
  */
 public class CartRecord {
 
-	private Book book;
+	private BookDto book;
 	private int quantity;
 
 	public CartRecord() {
@@ -31,11 +31,11 @@ public class CartRecord {
 		return amount.doubleValue();
 	}
 
-	public Book getBook() {
+	public BookDto getBook() {
 		return book;
 	}
 
-	public void setBook(Book book) {
+	public void setBook(BookDto book) {
 		this.book = book;
 	}
 

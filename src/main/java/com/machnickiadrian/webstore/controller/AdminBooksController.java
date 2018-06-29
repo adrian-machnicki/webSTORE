@@ -1,106 +1,94 @@
 package com.machnickiadrian.webstore.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.validation.Valid;
-
+import com.machnickiadrian.webstore.dto.AuthorDto;
+import com.machnickiadrian.webstore.dto.BookDto;
+import com.machnickiadrian.webstore.enums.AdminTab;
+import com.machnickiadrian.webstore.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.machnickiadrian.webstore.entity.Author;
-import com.machnickiadrian.webstore.entity.Book;
-import com.machnickiadrian.webstore.enums.AdminTab;
-import com.machnickiadrian.webstore.service.BookService;
+import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
- * 
  * @author Adrian Machnicki
- *
  */
 @Controller
 @RequestMapping("/admin/books")
 public class AdminBooksController {
-	
-	private static final String ADMIN_TAB = "adminTab";
 
-	@Autowired
-	private BookService bookService;
+    private static final String ADMIN_TAB = "adminTab";
+    private final BookService bookService;
 
-	@GetMapping
-	public String getBooksManagement(Model model, @RequestParam(defaultValue = "") String search) {
-		List<Book> books;
-		
-		if (search.equals(""))
-			books = bookService.findAll();
-		else
-			books = bookService.search(search);
-		
-		model.addAttribute("books", books);
-		model.addAttribute(ADMIN_TAB, AdminTab.BOOKS);
-		
-		return "admin/books";
-	}
+    @Autowired
+    public AdminBooksController(BookService bookService) {
+        this.bookService = bookService;
+    }
 
-	@GetMapping("/add")
-	public String getAddBookForm(Model model) {
-		if (!model.containsAttribute("book")) {
-			Book book = new Book();
-			List<Author> authors = new ArrayList<>();
-			authors.add(new Author());
-			book.setAuthors(authors);
-			model.addAttribute("book", book);
-		}
+    @GetMapping
+    public String getBooksManagement(Model model, @RequestParam(defaultValue = "") String search) {
+        List<BookDto> books;
 
-		return "admin/add-update-book";
-	}
+        if (search.equals(""))
+            books = bookService.findAll();
+        else
+            books = bookService.search(search);
 
-	@PostMapping(value = { "/add/addAuthor" })
-	public String addAuthorToForm(@ModelAttribute Book book, Model model, RedirectAttributes redirectAttr) {
-		book.getAuthors().add(new Author());
-		redirectAttr.addFlashAttribute("book", book);
+        model.addAttribute("books", books);
+        model.addAttribute(ADMIN_TAB, AdminTab.BOOKS);
+        return "admin/books";
+    }
 
-		return "redirect:/admin/books/add";
-	}
+    @GetMapping("/add")
+    public String getAddBookForm(Model model) {
+        if (!model.containsAttribute("book")) {
+            BookDto book = new BookDto();
+            List<AuthorDto> authors = new ArrayList<>();
+            authors.add(new AuthorDto());
+            book.setAuthors(authors);
+            model.addAttribute("book", book);
+        }
+        return "admin/add-update-book";
+    }
 
-	@PostMapping("/add")
-	public String addBook(@ModelAttribute @Valid Book book, BindingResult bindingResult) {
-		if (bindingResult.hasErrors())
-			return "admin/add-update-book";
-			
-		bookService.save(book);
-		
-		return "redirect:/admin/books";
-	}
+    @PostMapping("/add/addAuthor")
+    public String addAuthorToForm(@ModelAttribute("book") BookDto book, Model model, RedirectAttributes redirectAttr) {
+        book.getAuthors().add(new AuthorDto());
+        redirectAttr.addFlashAttribute("book", book);
+        return "redirect:/admin/books/add";
+    }
 
-	@GetMapping("/update")
-	public String getUpdateBookForm(@RequestParam("bookId") Long id, Model model) {
-		Book book = bookService.findById(id);
-		model.addAttribute("book", book);
+    @PostMapping("/add")
+    public String addBook(@ModelAttribute("book") @Valid BookDto book, BindingResult bindingResult) {
+        if (bindingResult.hasErrors())
+            return "admin/add-update-book";
 
-		return "admin/add-update-book";
-	}
+        bookService.save(book);
+        return "redirect:/admin/books";
+    }
 
-	@PostMapping("/update")
-	public String updateBook(@ModelAttribute(name="book") Book book, BindingResult bindingResult) {
-		bookService.save(book);
+    @GetMapping("/update")
+    public String getUpdateBookForm(@RequestParam("bookId") Long id, Model model) {
+        BookDto book = bookService.findById(id);
+        model.addAttribute("book", book);
+        return "admin/add-update-book";
+    }
 
-		return "redirect:/admin/books";
-	}
+    @PostMapping("/update")
+    public String updateBook(@ModelAttribute(name = "book") BookDto book, BindingResult bindingResult) {
+        bookService.save(book);
+        return "redirect:/admin/books";
+    }
 
-	@GetMapping("/delete")
-	public String deleteBook(@RequestParam("bookId") Long id) {
-		bookService.deleteById(id);
-
-		return "redirect:/admin/books";
-	}
+    @GetMapping("/delete")
+    public String deleteBook(@RequestParam("bookId") Long id) {
+        bookService.deleteById(id);
+        return "redirect:/admin/books";
+    }
 
 }

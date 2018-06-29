@@ -1,23 +1,23 @@
 package com.machnickiadrian.webstore.repository;
 
-import java.util.ArrayList;
-
+import com.machnickiadrian.webstore.entity.Order;
 import org.springframework.data.repository.Repository;
 
-import com.machnickiadrian.webstore.entity.Order;
+import java.util.List;
 
 /**
  * Repository class for <code>Order</code> objects.
- * 
- * @author Adrian Machnicki
  *
+ * @author Adrian Machnicki
  */
 public interface OrderRepository extends Repository<Order, Long> {
-	
-	Order findById(Long id);
-	
-	ArrayList<Order> findAll();
-	
-	void save(Order order);
+
+    Order findById(Long id);
+
+    List<Order> findAll();
+
+    List<Order> findAllByUserUsername(String userName);
+
+    void save(Order order);
 
 }

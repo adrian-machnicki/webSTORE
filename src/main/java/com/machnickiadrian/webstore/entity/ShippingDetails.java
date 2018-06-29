@@ -1,136 +1,99 @@
 package com.machnickiadrian.webstore.entity;
 
+import javax.persistence.*;
 import java.io.Serializable;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 
 /**
  * Entity representing an order's shipping details.
- * 
- * @author adrian.machnicki
  *
+ * @author adrian.machnicki
  */
 @Entity
 @Table(name = "shipping_details")
 public class ShippingDetails implements Serializable {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-	@NotBlank
-	@Size(min = 4, max = 25)
-	@Column(name = "first_name")
-	private String firstName;
+    @Column(name = "first_name")
+    private String firstName;
 
-	@Column(name = "second_name")
-	private String secondName;
+    @Column(name = "second_name")
+    private String secondName;
 
-	@NotBlank
-	@Size(min = 4, max = 50)
-	@Column(name = "last_name")
-	private String lastName;
+    @Column(name = "last_name")
+    private String lastName;
+    private String email;
+    private String address;
+    private String city;
 
-	@NotBlank
-	@Email
-	private String email;
+    public Long getId() {
+        return id;
+    }
 
-	@NotBlank
-	private String address;
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	@NotBlank
-	private String city;
+    public String getFirstName() {
+        return firstName;
+    }
 
-	@OneToOne(mappedBy = "shippingDetails")
-	private Order order;
-	
-	public void fillFromUserData(User user) {
-		this.firstName = user.getFirstName();
-		this.secondName = user.getSecondName();
-		this.lastName = user.getLastName();
-		this.email = user.getEmail();
-		this.address = user.getUserDetails().getAddress();
-		this.city = user.getUserDetails().getCity();	
-	}
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
-	public Long getId() {
-		return id;
-	}
+    public String getSecondName() {
+        return secondName;
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public void setSecondName(String secondName) {
+        this.secondName = secondName;
+    }
 
-	public String getFirstName() {
-		return firstName;
-	}
+    public String getLastName() {
+        return lastName;
+    }
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
-	public String getSecondName() {
-		return secondName;
-	}
+    public String getEmail() {
+        return email;
+    }
 
-	public void setSecondName(String secondName) {
-		this.secondName = secondName;
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	public String getLastName() {
-		return lastName;
-	}
+    public String getAddress() {
+        return address;
+    }
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public String getCity() {
+        return city;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public void setCity(String city) {
+        this.city = city;
+    }
 
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
-	public String getCity() {
-		return city;
-	}
-
-	public void setCity(String city) {
-		this.city = city;
-	}
-
-	public Order getOrder() {
-		return order;
-	}
-
-	public void setOrder(Order order) {
-		this.order = order;
-	}
-
-	@Override
-	public String toString() {
-		return String.format("ShippingDetails [firstName=%s, lastName=%s, city=%s, email=%s]", firstName, lastName, city,
-				email);
-	}
-
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("ShippingDetails{");
+        sb.append("id=").append(id);
+        sb.append(", firstName='").append(firstName).append('\'');
+        sb.append(", lastName='").append(lastName).append('\'');
+        sb.append(", email='").append(email).append('\'');
+        sb.append(", city='").append(city).append('\'');
+        sb.append('}');
+        return sb.toString();
+    }
 }

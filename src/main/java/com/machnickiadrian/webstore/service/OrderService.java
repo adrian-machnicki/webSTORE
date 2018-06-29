@@ -1,27 +1,28 @@
 package com.machnickiadrian.webstore.service;
 
-import java.util.List;
+import com.machnickiadrian.webstore.dto.OrderDto;
 
-import com.machnickiadrian.webstore.entity.Order;
+import java.util.List;
 
 /**
  * Service interface for <code>Order</code> objects manipulation.
- * 
- * @author Adrian Machnicki
  *
+ * @author Adrian Machnicki
  */
 public interface OrderService {
-	
-	Order findById(Long id);
-	
-	List<Order> findAll();
-	
-	void save(Order order);
-	
-	void setPaid(Long id);
-	
-	void setSent(Long id);
 
-	List<Order> search(String phrase);
+    OrderDto findById(Long id);
+
+    List<OrderDto> findAll();
+
+    List<OrderDto> findAllByUsername(String username);
+
+    void save(OrderDto order);
+
+    void setPaid(Long id);
+
+    void setSent(Long id);
+
+    List<OrderDto> search(String phrase);
 
 }

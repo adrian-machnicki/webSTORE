@@ -1,25 +1,23 @@
 package com.machnickiadrian.webstore.repository;
 
-import java.util.ArrayList;
-
+import com.machnickiadrian.webstore.entity.Role;
 import org.springframework.data.repository.Repository;
 
-import com.machnickiadrian.webstore.entity.Role;
+import java.util.List;
 
 /**
  * Repository class for <code>Role</code> objects.
- * 
- * @author Adrian Machnicki
  *
+ * @author Adrian Machnicki
  */
 public interface RoleRepository extends Repository<Role, Long> {
 
-	ArrayList<Role> findByUsername(String username);
-	
-	void delete(Role role);
-	
-	ArrayList<Role> findAll();
-	
-	int count();
+    List<Role> findByUsername(String username);
+
+    void delete(Role role);
+
+    List<Role> findAll();
+
+    int count();
 
 }

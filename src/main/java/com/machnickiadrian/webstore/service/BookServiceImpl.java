@@ -1,105 +1,144 @@
 package com.machnickiadrian.webstore.service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.StringJoiner;
-
-import javax.annotation.security.RolesAllowed;
-
+import com.machnickiadrian.webstore.converter.BookDtoToBookConverter;
+import com.machnickiadrian.webstore.converter.BookToBookDtoConverter;
+import com.machnickiadrian.webstore.dto.AuthorDto;
+import com.machnickiadrian.webstore.dto.BookDto;
+import com.machnickiadrian.webstore.dto.OrderDto;
+import com.machnickiadrian.webstore.dto.OrderRecordDto;
+import com.machnickiadrian.webstore.entity.Book;
+import com.machnickiadrian.webstore.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.machnickiadrian.webstore.entity.Author;
-import com.machnickiadrian.webstore.entity.Book;
-import com.machnickiadrian.webstore.repository.BookRepository;
+import javax.annotation.security.RolesAllowed;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.StringJoiner;
+import java.util.stream.Collectors;
 
 /**
  * Implementation of <code>BookService</code> interface. It's methods are
  * transactional and secured with Spring Security and JSR-250.
- * 
- * @author Adrian Machnicki
  *
+ * @author Adrian Machnicki
  */
 @Service
 public class BookServiceImpl implements BookService {
-	private static final String ADMIN = "ADMIN";
 
-	@Autowired
-	private BookRepository repository;
+    private static final String ADMIN = "ADMIN";
+    private final BookRepository repository;
+    private final OrderService orderService;
+    private final BookToBookDtoConverter bookToBookDtoConverter;
+    private final BookDtoToBookConverter bookDtoToBookConverter;
 
-	@Transactional(readOnly = true)
-	@Override
-	public Book findById(Long id) {
-		return repository.findById(id).get();
-	}
+    @Autowired
+    public BookServiceImpl(BookRepository repository, OrderService orderService,
+                           BookToBookDtoConverter bookToBookDtoConverter, BookDtoToBookConverter bookDtoToBookConverter) {
+        this.repository = repository;
+        this.orderService = orderService;
+        this.bookToBookDtoConverter = bookToBookDtoConverter;
+        this.bookDtoToBookConverter = bookDtoToBookConverter;
+    }
 
-	@Transactional(readOnly = true)
-	@Override
-	public List<Book> findAll() {
-		return repository.findAll();
-	}
+    @Transactional(readOnly = true)
+    @Override
+    public BookDto findById(Long id) {
+        Book book = repository.findById(id).get();
+        return bookToBookDtoConverter.convert(book);
+    }
 
-	@Transactional(readOnly = true)
-	@Override
-	public List<Book> findAll(int page, int size) {
-		return repository.findAll(PageRequest.of(page, size)).getContent();
-	}
+    @Transactional(readOnly = true)
+    @Override
+    public List<BookDto> findAll() {
+        return repository.findAll().stream()
+                .map(bookToBookDtoConverter::convert)
+                .collect(Collectors.toList());
+    }
 
-	@RolesAllowed(ADMIN)
-	@Transactional
-	@Override
-	public void save(Book book) {
-		repository.save(book);
-	}
+    @Transactional(readOnly = true)
+    @Override
+    public List<BookDto> findAll(int page, int size) {
+        return repository.findAll(PageRequest.of(page, size)).getContent().stream()
+                .map(bookToBookDtoConverter::convert)
+                .collect(Collectors.toList());
+    }
 
-	@RolesAllowed(ADMIN)
-	@Transactional
-	@Override
-	public void deleteById(Long id) {
-		repository.deleteById(id);
-	}
+    @Transactional(readOnly = true)
+    @Override
+    public List<BookDto> findAllBoughtByUsername(String username) {
+        List<OrderDto> userOrders = orderService.findAllByUsername(username);
+        List<BookDto> books = new ArrayList<>();
+        BookDto book;
+        for (OrderDto order : userOrders) {
+            for (OrderRecordDto record : order.getRecords()) {
+                book = record.getBook();
+                if (!books.contains(book))
+                    books.add(book);
+            }
+        }
 
-	@Transactional(readOnly = true)
-	@Override
-	public List<Book> search(String phrase) {
-		phrase = phrase.trim();
-		String[] keywords = phrase.split(" ");
-		List<Book> allBooks = repository.findAll();
-		List<Book> foundBooks = new ArrayList<>();
+        return books;
+    }
 
-		for (Book book : allBooks) {
-			if (book.getTitle().toLowerCase().contains(phrase.toLowerCase())) {
-				foundBooks.add(book);
-				continue;
-			}
+    @RolesAllowed(ADMIN)
+    @Transactional
+    @Override
+    public void save(BookDto book) {
+        Book bookToSave = bookDtoToBookConverter.convert(book);
+        repository.save(bookToSave);
+    }
 
-			StringJoiner bookData = new StringJoiner(" ");
-			bookData.add(book.getTitle());
-			for (Author author : book.getAuthors()) {
-				bookData.add(author.getFirstName());
-				bookData.add(author.getLastName());
-			}
+    @RolesAllowed(ADMIN)
+    @Transactional
+    @Override
+    public void deleteById(Long id) {
+        repository.deleteById(id);
+    }
 
-			boolean containsAll = true;
-			for (String keyword : keywords) {
-				if (!bookData.toString().toLowerCase().contains(keyword.toLowerCase())) {
-					containsAll = false;
-					break;
-				}
-			}
-			if (containsAll)
-				foundBooks.add(book);
-		}
+    @Transactional(readOnly = true)
+    @Override
+    public List<BookDto> search(String phrase) {
+        phrase = phrase.trim();
+        String[] keywords = phrase.split(" ");
+        List<BookDto> allBooks = repository.findAll().stream()
+                .map(bookToBookDtoConverter::convert)
+                .collect(Collectors.toList());
+        List<BookDto> foundBooks = new ArrayList<>();
 
-		return foundBooks;
-	}
+        for (BookDto book : allBooks) {
+            if (book.getTitle().toLowerCase().contains(phrase.toLowerCase())) {
+                foundBooks.add(book);
+                continue;
+            }
 
-	@Transactional(readOnly = true)
-	@Override
-	public int countAll() {
-		return Math.toIntExact(repository.count());
-	}
+            StringJoiner bookData = new StringJoiner(" ");
+            bookData.add(book.getTitle());
+            for (AuthorDto author : book.getAuthors()) {
+                bookData.add(author.getFirstName());
+                bookData.add(author.getLastName());
+            }
+
+            boolean containsAll = true;
+            for (String keyword : keywords) {
+                if (!bookData.toString().toLowerCase().contains(keyword.toLowerCase())) {
+                    containsAll = false;
+                    break;
+                }
+            }
+            if (containsAll)
+                foundBooks.add(book);
+        }
+
+        return foundBooks;
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public int countAll() {
+        return Math.toIntExact(repository.count());
+    }
 
 }

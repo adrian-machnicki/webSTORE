@@ -1,29 +1,30 @@
 package com.machnickiadrian.webstore.service;
 
-import java.util.List;
+import com.machnickiadrian.webstore.dto.BookDto;
 
-import com.machnickiadrian.webstore.entity.Book;
+import java.util.List;
 
 /**
  * Service interface for <code>Book</code> objects manipulation.
- * 
- * @author Adrian Machnicki
  *
+ * @author Adrian Machnicki
  */
 public interface BookService {
-	
-	Book findById(Long id);
-	
-	List<Book> findAll();
-	
-	List<Book> findAll(int page, int size);
 
-	void save(Book book);
+    BookDto findById(Long id);
 
-	void deleteById(Long id);
+    List<BookDto> findAll();
 
-	List<Book> search(String phrase);
-	
-	int countAll();
+    List<BookDto> findAll(int page, int size);
+
+    List<BookDto> findAllBoughtByUsername(String username);
+
+    void save(BookDto book);
+
+    void deleteById(Long id);
+
+    List<BookDto> search(String phrase);
+
+    int countAll();
 
 }

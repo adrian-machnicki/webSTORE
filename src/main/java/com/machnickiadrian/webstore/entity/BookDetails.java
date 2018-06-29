@@ -1,61 +1,54 @@
 package com.machnickiadrian.webstore.entity;
 
+import javax.persistence.*;
 import java.io.Serializable;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.validation.constraints.Size;
 
 /**
  * Entity representing additional book's details.
- * 
- * @author Adrian Machnicki
  *
+ * @author Adrian Machnicki
  */
 @Entity
-@Table(name="book_details")
+@Table(name = "book_details")
 public class BookDetails implements Serializable {
-	private static final long serialVersionUID = 1L;
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	
-	private int pages;
-	
-	@Size(max = 4096)
-	private String description;
+    private static final long serialVersionUID = 1L;
 
-	public Long getId() {
-		return id;
-	}
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private int pages;
+    private String description;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public int getPages() {
-		return pages;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public void setPages(int pages) {
-		this.pages = pages;
-	}
+    public int getPages() {
+        return pages;
+    }
 
-	public String getDescription() {
-		return description;
-	}
+    public void setPages(int pages) {
+        this.pages = pages;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public String getDescription() {
+        return description;
+    }
 
-	@Override
-	public String toString() {
-		return String.format("BookDetails [id=%s, pages=%s, description=%s]", id, pages, description);
-	}
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("BookDetails{");
+        sb.append("id=").append(id);
+        sb.append(", pages=").append(pages);
+        sb.append('}');
+        return sb.toString();
+    }
 }

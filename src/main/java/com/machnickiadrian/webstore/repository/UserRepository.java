@@ -1,29 +1,27 @@
 package com.machnickiadrian.webstore.repository;
 
-import java.util.ArrayList;
-
+import com.machnickiadrian.webstore.entity.User;
 import org.springframework.data.repository.Repository;
 
-import com.machnickiadrian.webstore.entity.User;
+import java.util.List;
 
 /**
  * Repository class for <code>User</code> objects.
- * 
- * @author Adrian Machnicki
  *
+ * @author Adrian Machnicki
  */
 public interface UserRepository extends Repository<User, Long> {
 
-	User findByUsername(String username);
-	
-	User findById(Long id);
-	
-	User findByEmail(String email);
-	
-	ArrayList<User> findAll();
+    User findByUsername(String username);
 
-	void save(User user);
-	
-	void deleteById(Long id);
+    User findById(Long id);
+
+    User findByEmail(String email);
+
+    List<User> findAll();
+
+    void save(User user);
+
+    void deleteById(Long id);
 
 }

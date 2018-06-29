@@ -1,6 +1,7 @@
 target/
 .mvn/
 .settings/
+.idea/
 
 .apt_generated
 .classpath

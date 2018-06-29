@@ -1,163 +1,133 @@
 package com.machnickiadrian.webstore.entity;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
-
 /**
  * Entity representing a registered user.
- * 
- * @author Adrian Machnicki
  *
+ * @author Adrian Machnicki
  */
 @Entity
 @Table(name = "users")
 public class User implements Serializable {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String username;
 
-	@NotBlank
-	@Size(min = 4, max = 25)
-	private String username;
+    @Column(name = "first_name")
+    private String firstName;
 
-	@Column(name = "first_name")
-	private String firstName;
+    @Column(name = "second_name")
+    private String secondName;
 
-	@Column(name = "second_name")
-	private String secondName;
+    @Column(name = "last_name")
+    private String lastName;
+    private String password;
+    private String email;
 
-	@Column(name = "last_name")
-	private String lastName;
+    @OneToMany(cascade = {CascadeType.ALL})
+    @JoinColumn(name = "username", referencedColumnName = "username")
+    private List<Role> roles;
 
-	@NotBlank
-	private String password;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_details_id")
+    private UserDetails userDetails;
+    private int enabled;
 
-	@NotBlank
-	@Email
-	private String email;
+    public Long getId() {
+        return id;
+    }
 
-	@OneToMany(cascade = { CascadeType.ALL })
-	@JoinColumn(name = "username", referencedColumnName = "username")
-	private List<Role> roles;
-	
-	@OneToMany(mappedBy = "user",
-			cascade = {CascadeType.PERSIST, CascadeType.MERGE,
-			CascadeType.REFRESH, CascadeType.DETACH})
-	private List<Order> orders;
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "user_details_id")
-	private UserDetails userDetails;
+    public String getUsername() {
+        return username;
+    }
 
-	private int enabled;
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-	public Long getId() {
-		return id;
-	}
+    public String getFirstName() {
+        return firstName;
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
-	public String getUsername() {
-		return username;
-	}
+    public String getSecondName() {
+        return secondName;
+    }
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
+    public void setSecondName(String secondName) {
+        this.secondName = secondName;
+    }
 
-	public String getFirstName() {
-		return firstName;
-	}
+    public String getLastName() {
+        return lastName;
+    }
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
-	public String getSecondName() {
-		return secondName;
-	}
+    public String getPassword() {
+        return password;
+    }
 
-	public void setSecondName(String secondName) {
-		this.secondName = secondName;
-	}
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-	public String getLastName() {
-		return lastName;
-	}
+    public String getEmail() {
+        return email;
+    }
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	public String getPassword() {
-		return password;
-	}
+    public List<Role> getRoles() {
+        return roles;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public UserDetails getUserDetails() {
+        return userDetails;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public void setUserDetails(UserDetails userDetails) {
+        this.userDetails = userDetails;
+    }
 
-	public List<Role> getRoles() {
-		return roles;
-	}
+    public int getEnabled() {
+        return enabled;
+    }
 
-	public void setRoles(List<Role> roles) {
-		this.roles = roles;
-	}
+    public void setEnabled(int enabled) {
+        this.enabled = enabled;
+    }
 
-	public List<Order> getOrders() {
-		return orders;
-	}
-
-	public void setOrders(List<Order> orders) {
-		this.orders = orders;
-	}
-
-	public UserDetails getUserDetails() {
-		return userDetails;
-	}
-
-	public void setUserDetails(UserDetails userDetails) {
-		this.userDetails = userDetails;
-	}
-
-	public int getEnabled() {
-		return enabled;
-	}
-
-	public void setEnabled(int enabled) {
-		this.enabled = enabled;
-	}
-
-	@Override
-	public String toString() {
-		return String.format("User [id=%s, username=%s, firstName=%s, lastName=%s]", id, username, firstName, lastName);
-	}
-
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("User{");
+        sb.append("id=").append(id);
+        sb.append(", username='").append(username).append('\'');
+        sb.append(", firstName='").append(firstName).append('\'');
+        sb.append(", lastName='").append(lastName).append('\'');
+        sb.append(", email='").append(email).append('\'');
+        sb.append('}');
+        return sb.toString();
+    }
 }

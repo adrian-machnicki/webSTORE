@@ -3,69 +3,116 @@ package com.machnickiadrian.webstore.dto;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-
-import com.machnickiadrian.webstore.validation.PasswordMatches;
+import java.util.List;
 
 /**
- * Data Transfer Object representing an user, used for processing registering
- * new user with register-form.
- * 
  * @author Adrian Machnicki
- *
  */
-@PasswordMatches
 public class UserDto {
 
-	@NotBlank
-	@Size(min = 4, max = 25)
-	private String username;
+    private Long id;
 
-	@NotBlank
-	@Size(min = 4, max = 25)
-	private String password;
+    @NotBlank
+    @Size(min = 4, max = 25)
+    private String username;
 
-	@NotBlank
-	private String passwordConfirm;
+    @NotBlank
+    @Size(min = 3, max = 50)
+    private String firstName;
+    private String secondName;
 
-	@NotBlank
-	@Email
-	private String email;
+    @NotBlank
+    @Size(min = 4, max = 70)
+    private String lastName;
 
-	public String getUsername() {
-		return username;
-	}
+    @NotBlank
+    @Email
+    private String email;
+    private List<RoleDto> roles;
+    private UserDetailsDto userDetails;
+    private int enabled;
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public String getPassword() {
-		return password;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    public String getUsername() {
+        return username;
+    }
 
-	public String getPasswordConfirm() {
-		return passwordConfirm;
-	}
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-	public void setPasswordConfirm(String passwordConfirm) {
-		this.passwordConfirm = passwordConfirm;
-	}
+    public String getFirstName() {
+        return firstName;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public String getSecondName() {
+        return secondName;
+    }
 
-	@Override
-	public String toString() {
-		return String.format("UserDto [username=%s, email=%s]", username, email);
-	}
+    public void setSecondName(String secondName) {
+        this.secondName = secondName;
+    }
 
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public List<RoleDto> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<RoleDto> roles) {
+        this.roles = roles;
+    }
+
+    public UserDetailsDto getUserDetails() {
+        return userDetails;
+    }
+
+    public void setUserDetails(UserDetailsDto userDetails) {
+        this.userDetails = userDetails;
+    }
+
+    public int getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(int enabled) {
+        this.enabled = enabled;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("UserDto{");
+        sb.append("id=").append(id);
+        sb.append(", username='").append(username).append('\'');
+        sb.append(", firstName='").append(firstName).append('\'');
+        sb.append(", lastName='").append(lastName).append('\'');
+        sb.append(", email='").append(email).append('\'');
+        sb.append('}');
+        return sb.toString();
+    }
 }

@@ -1,34 +1,34 @@
 package com.machnickiadrian.webstore.service;
 
-import java.util.List;
-
 import com.machnickiadrian.webstore.dto.UserDto;
-import com.machnickiadrian.webstore.entity.User;
+import com.machnickiadrian.webstore.dto.UserProfileDto;
+import com.machnickiadrian.webstore.dto.UserRegisterDto;
+
+import java.util.List;
 
 /**
  * Service interface for <code>User</code> objects manipulation.
- * 
- * @author Adrian Machnicki
  *
+ * @author Adrian Machnicki
  */
 public interface UserService {
-	
-	void registerNewUser(UserDto userDto);
-	
-	User findByUsername(String username);
-	
-	User findByEmail(String email);
-	
-	User findById(Long id);
-	
-	List<User> findAll();
 
-	void save(User user);
-	
-	void deleteById(Long id);
-	
-	void setEnabledDisabled(Long userId);
+    void registerNewUser(UserRegisterDto userDto);
 
-	List<User> search(String phrase);
+    UserDto findByUsername(String username);
+
+    UserDto findByEmail(String email);
+
+    UserDto findById(Long id);
+
+    List<UserDto> findAll();
+
+    void save(UserProfileDto userProfileDto);
+
+    void deleteById(Long id);
+
+    void setEnabledDisabled(Long userId);
+
+    List<UserDto> search(String phrase);
 
 }
