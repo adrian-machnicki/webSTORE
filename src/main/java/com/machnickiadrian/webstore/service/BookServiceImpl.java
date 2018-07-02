@@ -7,6 +7,7 @@ import com.machnickiadrian.webstore.dto.BookDto;
 import com.machnickiadrian.webstore.dto.OrderDto;
 import com.machnickiadrian.webstore.dto.OrderRecordDto;
 import com.machnickiadrian.webstore.entity.Book;
+import com.machnickiadrian.webstore.exception.BookNotFoundException;
 import com.machnickiadrian.webstore.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -29,15 +30,15 @@ import java.util.stream.Collectors;
 public class BookServiceImpl implements BookService {
 
     private static final String ADMIN = "ADMIN";
-    private final BookRepository repository;
+    private final BookRepository bookRepository;
     private final OrderService orderService;
     private final BookToBookDtoConverter bookToBookDtoConverter;
     private final BookDtoToBookConverter bookDtoToBookConverter;
 
     @Autowired
-    public BookServiceImpl(BookRepository repository, OrderService orderService,
+    public BookServiceImpl(BookRepository bookRepository, OrderService orderService,
                            BookToBookDtoConverter bookToBookDtoConverter, BookDtoToBookConverter bookDtoToBookConverter) {
-        this.repository = repository;
+        this.bookRepository = bookRepository;
         this.orderService = orderService;
         this.bookToBookDtoConverter = bookToBookDtoConverter;
         this.bookDtoToBookConverter = bookDtoToBookConverter;
@@ -46,14 +47,15 @@ public class BookServiceImpl implements BookService {
     @Transactional(readOnly = true)
     @Override
     public BookDto findById(Long id) {
-        Book book = repository.findById(id).get();
+        Book book = bookRepository.findById(id)
+                .orElseThrow(() -> new BookNotFoundException(id));
         return bookToBookDtoConverter.convert(book);
     }
 
     @Transactional(readOnly = true)
     @Override
     public List<BookDto> findAll() {
-        return repository.findAll().stream()
+        return bookRepository.findAll().stream()
                 .map(bookToBookDtoConverter::convert)
                 .collect(Collectors.toList());
     }
@@ -61,7 +63,7 @@ public class BookServiceImpl implements BookService {
     @Transactional(readOnly = true)
     @Override
     public List<BookDto> findAll(int page, int size) {
-        return repository.findAll(PageRequest.of(page, size)).getContent().stream()
+        return bookRepository.findAll(PageRequest.of(page, size)).getContent().stream()
                 .map(bookToBookDtoConverter::convert)
                 .collect(Collectors.toList());
     }
@@ -88,14 +90,14 @@ public class BookServiceImpl implements BookService {
     @Override
     public void save(BookDto book) {
         Book bookToSave = bookDtoToBookConverter.convert(book);
-        repository.save(bookToSave);
+        bookRepository.save(bookToSave);
     }
 
     @RolesAllowed(ADMIN)
     @Transactional
     @Override
     public void deleteById(Long id) {
-        repository.deleteById(id);
+        bookRepository.deleteById(id);
     }
 
     @Transactional(readOnly = true)
@@ -103,7 +105,7 @@ public class BookServiceImpl implements BookService {
     public List<BookDto> search(String phrase) {
         phrase = phrase.trim();
         String[] keywords = phrase.split(" ");
-        List<BookDto> allBooks = repository.findAll().stream()
+        List<BookDto> allBooks = bookRepository.findAll().stream()
                 .map(bookToBookDtoConverter::convert)
                 .collect(Collectors.toList());
         List<BookDto> foundBooks = new ArrayList<>();
@@ -138,7 +140,7 @@ public class BookServiceImpl implements BookService {
     @Transactional(readOnly = true)
     @Override
     public int countAll() {
-        return Math.toIntExact(repository.count());
+        return Math.toIntExact(bookRepository.count());
     }
 
 }

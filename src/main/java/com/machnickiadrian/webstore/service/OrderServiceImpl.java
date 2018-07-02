@@ -27,16 +27,16 @@ import java.util.stream.Collectors;
 public class OrderServiceImpl implements OrderService {
 
     private static final String ADMIN = "ROLE_ADMIN";
-    private final OrderRepository repository;
+    private final OrderRepository orderRepository;
     private final EmailService emailService;
     private final OrderToOrderDtoConverter orderToOrderDtoConverter;
     private final OrderDtoToOrderConverter orderDtoToOrderConverter;
 
     @Autowired
-    public OrderServiceImpl(OrderRepository repository, EmailService emailService,
+    public OrderServiceImpl(OrderRepository orderRepository, EmailService emailService,
                             OrderToOrderDtoConverter orderToOrderDtoConverter,
                             OrderDtoToOrderConverter orderDtoToOrderConverter) {
-        this.repository = repository;
+        this.orderRepository = orderRepository;
         this.emailService = emailService;
         this.orderToOrderDtoConverter = orderToOrderDtoConverter;
         this.orderDtoToOrderConverter = orderDtoToOrderConverter;
@@ -46,7 +46,7 @@ public class OrderServiceImpl implements OrderService {
     @Transactional(readOnly = true)
     @Override
     public OrderDto findById(Long id) {
-        Order order = repository.findById(id);
+        Order order = orderRepository.findById(id);
         return orderToOrderDtoConverter.convert(order);
     }
 
@@ -54,7 +54,7 @@ public class OrderServiceImpl implements OrderService {
     @Transactional(readOnly = true)
     @Override
     public List<OrderDto> findAll() {
-        return repository.findAll().stream()
+        return orderRepository.findAll().stream()
                 .map(orderToOrderDtoConverter::convert)
                 .collect(Collectors.toList());
     }
@@ -62,7 +62,7 @@ public class OrderServiceImpl implements OrderService {
     @Transactional(readOnly = true)
     @Override
     public List<OrderDto> findAllByUsername(String username) {
-        return repository.findAllByUserUsername(username).stream()
+        return orderRepository.findAllByUserUsername(username).stream()
                 .map(orderToOrderDtoConverter::convert)
                 .collect(Collectors.toList());
     }
@@ -72,7 +72,7 @@ public class OrderServiceImpl implements OrderService {
     public void save(OrderDto order) {
         order.setDate(new Date());
         Order orderToSave = orderDtoToOrderConverter.convert(order);
-        repository.save(orderToSave);
+        orderRepository.save(orderToSave);
         order.setId(orderToSave.getId());
         emailService.sendOrderConfirmation(order);
     }
@@ -81,7 +81,7 @@ public class OrderServiceImpl implements OrderService {
     @Transactional
     @Override
     public void setPaid(Long id) {
-        Order order = repository.findById(id);
+        Order order = orderRepository.findById(id);
         boolean paid = order.isPaid();
         order.setPaid(!paid);
     }
@@ -90,7 +90,7 @@ public class OrderServiceImpl implements OrderService {
     @Transactional
     @Override
     public void setSent(Long id) {
-        Order order = repository.findById(id);
+        Order order = orderRepository.findById(id);
         boolean sent = order.isSent();
         order.setSent(!sent);
     }
@@ -101,7 +101,7 @@ public class OrderServiceImpl implements OrderService {
     public List<OrderDto> search(String phrase) {
         phrase = phrase.trim();
         String[] keywords = phrase.split(" ");
-        List<OrderDto> allOrders = repository.findAll().stream()
+        List<OrderDto> allOrders = orderRepository.findAll().stream()
                 .map(orderToOrderDtoConverter::convert)
                 .collect(Collectors.toList());
         List<OrderDto> foundOrders = new ArrayList<>();
