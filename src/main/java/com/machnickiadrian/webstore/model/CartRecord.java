@@ -1,6 +1,8 @@
 package com.machnickiadrian.webstore.model;
 
 import com.machnickiadrian.webstore.dto.BookDto;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -11,6 +13,8 @@ import java.math.RoundingMode;
  * @author Adrian Machnicki
  *
  */
+@Setter
+@Getter
 public class CartRecord {
 
 	private BookDto book;
@@ -29,22 +33,6 @@ public class CartRecord {
 		BigDecimal bookPrice = BigDecimal.valueOf(this.book.getPrice());
 		BigDecimal amount = bookQuantity.multiply(bookPrice).setScale(2, RoundingMode.HALF_UP);
 		return amount.doubleValue();
-	}
-
-	public BookDto getBook() {
-		return book;
-	}
-
-	public void setBook(BookDto book) {
-		this.book = book;
-	}
-
-	public int getQuantity() {
-		return quantity;
-	}
-
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
 	}
 
 	@Override

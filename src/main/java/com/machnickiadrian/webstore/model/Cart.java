@@ -1,6 +1,8 @@
 package com.machnickiadrian.webstore.model;
 
 import com.machnickiadrian.webstore.dto.BookDto;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
@@ -13,6 +15,8 @@ import java.util.*;
  *
  * @author Adrian Machnicki
  */
+@Setter
+@Getter
 @Component
 @Scope(scopeName = "session", proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class Cart {
@@ -80,22 +84,6 @@ public class Cart {
                 return record;
         }
         return null;
-    }
-
-    public List<CartRecord> getBooks() {
-        return books;
-    }
-
-    public Set<Long> getAddedBooksIds() {
-        return addedBooksIds;
-    }
-
-    public void setAddedBooksIds(Set<Long> addedBooksIds) {
-        this.addedBooksIds = addedBooksIds;
-    }
-
-    public double getFinalPrice() {
-        return finalPrice;
     }
 
     @Override

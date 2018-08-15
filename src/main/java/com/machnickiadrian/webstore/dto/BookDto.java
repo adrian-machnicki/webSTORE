@@ -1,5 +1,8 @@
 package com.machnickiadrian.webstore.dto;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.validation.Valid;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotBlank;
@@ -8,6 +11,8 @@ import java.util.List;
 /**
  * @author Adrian Machnicki
  */
+@Getter
+@Setter
 public class BookDto {
 
     private Long id;
@@ -25,54 +30,6 @@ public class BookDto {
     private BookDetailsDto details;
 
     private int amount;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
-    public List<AuthorDto> getAuthors() {
-        return authors;
-    }
-
-    public void setAuthors(List<AuthorDto> authors) {
-        this.authors = authors;
-    }
-
-    public BookDetailsDto getDetails() {
-        return details;
-    }
-
-    public void setDetails(BookDetailsDto details) {
-        this.details = details;
-    }
-
-    public int getAmount() {
-        return amount;
-    }
-
-    public void setAmount(int amount) {
-        this.amount = amount;
-    }
 
     @Override
     public String toString() {
