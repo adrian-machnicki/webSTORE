@@ -1,8 +1,13 @@
 package com.machnickiadrian.webstore.dto;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * @author Adrian Machnicki
  */
+@Getter
+@Setter
 public class OrderRecordDto {
 
     private Long id;
@@ -10,46 +15,6 @@ public class OrderRecordDto {
     private double price;
     private double amount;
     private BookDto book;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
-    public double getAmount() {
-        return amount;
-    }
-
-    public void setAmount(double amount) {
-        this.amount = amount;
-    }
-
-    public BookDto getBook() {
-        return book;
-    }
-
-    public void setBook(BookDto book) {
-        this.book = book;
-    }
 
     @Override
     public String toString() {

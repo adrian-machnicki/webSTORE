@@ -1,5 +1,8 @@
 package com.machnickiadrian.webstore.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -8,6 +11,8 @@ import java.io.Serializable;
  *
  * @author Adrian Machnicki
  */
+@Getter
+@Setter
 @Entity
 @Table(name = "user_details")
 public class UserDetails implements Serializable {
@@ -18,30 +23,6 @@ public class UserDetails implements Serializable {
     private Long id;
     private String address;
     private String city;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
 
     @Override
     public String toString() {

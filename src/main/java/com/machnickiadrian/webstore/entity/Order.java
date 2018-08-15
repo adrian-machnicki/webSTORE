@@ -1,5 +1,8 @@
 package com.machnickiadrian.webstore.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -10,6 +13,8 @@ import java.util.List;
  *
  * @author Adrian Machnicki
  */
+@Getter
+@Setter
 @Entity
 @Table(name = "orders")
 public class Order implements Serializable {
@@ -34,70 +39,6 @@ public class Order implements Serializable {
     private Date date;
     private boolean paid = false;
     private boolean sent = false;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public double getAmount() {
-        return amount;
-    }
-
-    public void setAmount(double amount) {
-        this.amount = amount;
-    }
-
-    public List<OrderRecord> getRecords() {
-        return records;
-    }
-
-    public void setRecords(List<OrderRecord> records) {
-        this.records = records;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public ShippingDetails getShippingDetails() {
-        return shippingDetails;
-    }
-
-    public void setShippingDetails(ShippingDetails shippingDetails) {
-        this.shippingDetails = shippingDetails;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    public boolean isPaid() {
-        return paid;
-    }
-
-    public void setPaid(boolean paid) {
-        this.paid = paid;
-    }
-
-    public boolean isSent() {
-        return sent;
-    }
-
-    public void setSent(boolean sent) {
-        this.sent = sent;
-    }
 
     @Override
     public String toString() {

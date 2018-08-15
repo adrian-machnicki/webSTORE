@@ -2,6 +2,8 @@ package com.machnickiadrian.webstore.dto;
 
 import com.machnickiadrian.webstore.model.Cart;
 import com.machnickiadrian.webstore.model.CartRecord;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -12,6 +14,8 @@ import java.util.List;
 /**
  * @author Adrian Machnicki
  */
+@Getter
+@Setter
 public class OrderDto {
 
     private Long id;
@@ -51,70 +55,6 @@ public class OrderDto {
             shippingDetails = new ShippingDetailsDto();
 
         shippingDetails.fillFromUserData(user);
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public double getAmount() {
-        return amount;
-    }
-
-    public void setAmount(double amount) {
-        this.amount = amount;
-    }
-
-    public List<OrderRecordDto> getRecords() {
-        return records;
-    }
-
-    public void setRecords(List<OrderRecordDto> records) {
-        this.records = records;
-    }
-
-    public UserDto getUser() {
-        return user;
-    }
-
-    public void setUser(UserDto user) {
-        this.user = user;
-    }
-
-    public ShippingDetailsDto getShippingDetails() {
-        return shippingDetails;
-    }
-
-    public void setShippingDetails(ShippingDetailsDto shippingDetails) {
-        this.shippingDetails = shippingDetails;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    public boolean isPaid() {
-        return paid;
-    }
-
-    public void setPaid(boolean paid) {
-        this.paid = paid;
-    }
-
-    public boolean isSent() {
-        return sent;
-    }
-
-    public void setSent(boolean sent) {
-        this.sent = sent;
     }
 
     @Override

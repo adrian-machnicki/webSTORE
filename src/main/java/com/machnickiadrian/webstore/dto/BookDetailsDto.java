@@ -1,10 +1,15 @@
 package com.machnickiadrian.webstore.dto;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.validation.constraints.Size;
 
 /**
  * @author Adrian Machnicki
  */
+@Getter
+@Setter
 public class BookDetailsDto {
 
     private Long id;
@@ -12,30 +17,6 @@ public class BookDetailsDto {
 
     @Size(max = 4096)
     private String description;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public int getPages() {
-        return pages;
-    }
-
-    public void setPages(int pages) {
-        this.pages = pages;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
 
     @Override
     public String toString() {

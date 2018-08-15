@@ -1,5 +1,8 @@
 package com.machnickiadrian.webstore.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
@@ -9,6 +12,8 @@ import java.util.List;
  *
  * @author Adrian Machnicki
  */
+@Getter
+@Setter
 @Entity
 @Table(name = "books")
 public class Book implements Serializable {
@@ -33,54 +38,6 @@ public class Book implements Serializable {
     private BookDetails details;
 
     private int amount;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
-    public List<Author> getAuthors() {
-        return authors;
-    }
-
-    public void setAuthors(List<Author> authors) {
-        this.authors = authors;
-    }
-
-    public BookDetails getDetails() {
-        return details;
-    }
-
-    public void setDetails(BookDetails details) {
-        this.details = details;
-    }
-
-    public int getAmount() {
-        return amount;
-    }
-
-    public void setAmount(int amount) {
-        this.amount = amount;
-    }
 
     @Override
     public String toString() {
