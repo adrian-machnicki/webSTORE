@@ -2,7 +2,7 @@
 Project of a bookstore using Spring Boot.
 
 ## Technologies and frameworks:
-* Java 8
+* Java 10
 * Spring Boot
 * Spring MVC
 * Spring Security
@@ -23,8 +23,8 @@ These instructions will get you a copy of this project up and running on your PC
 What you need to have installed:
 
 ```
-- JDK 8
-- Spring Tool Suite (STS)
+- JDK 10
+- IntelliJ IDEA or STS
 ```
 
 
@@ -32,9 +32,9 @@ What you need to have installed:
 
 ```
 1. Clone or download the project to your computer.
-2. Import the project to the STS as 'Existing Maven Project'.
-3. Fill in fields required for email service in application.properties file [spring.mail.username, spring.mail.password].
-4. Right click the project's name and select 'Run As' -> 'Spring Boot App'.
+2. Open the project in your IDE.
+3. (optionally) Fill in fields required for email service in application.properties file [spring.mail.username, spring.mail.password].
+4. Run the application.
 ```
 
 
