@@ -3,7 +3,4 @@ target/
 .settings/
 .idea/
 
-.apt_generated
-.classpath
-.project
-.springBeans
+webstore.iml
