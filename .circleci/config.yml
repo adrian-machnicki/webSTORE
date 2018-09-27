@@ -1,0 +1,29 @@
+version: 2
+jobs:
+  build:
+
+    working_directory: ~/webstore
+
+    docker:
+    - image: circleci/openjdk:10.0.2-13-jdk-browsers-legacy
+
+    steps:
+    - checkout
+
+    - restore_cache:
+        key: webstore-{{ checksum "pom.xml" }}
+
+    - run: mvn dependency:go-offline
+
+    - save_cache:
+        paths:
+        - ~/.m2
+        key: webstore-{{ checksum "pom.xml" }}
+
+    - run: mvn package
+
+    - store_test_results:
+        path: target/surefire-reports
+
+    - store_artifacts:
+        path: target/webstore-v0.1-SNAPSHOT.jar
