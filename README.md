@@ -1,3 +1,4 @@
+[![CircleCI](https://circleci.com/gh/adrian-machnicki/webSTORE.svg?style=svg)](https://circleci.com/gh/adrian-machnicki/webSTORE)
 # webSTORE
 Project of a bookstore using Spring Boot.
 
