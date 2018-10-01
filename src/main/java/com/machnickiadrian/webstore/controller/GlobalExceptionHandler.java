@@ -1,6 +1,6 @@
 package com.machnickiadrian.webstore.controller;
 
-import com.machnickiadrian.webstore.exception.BookNotFoundException;
+import com.machnickiadrian.webstore.book.exception.BookNotFoundException;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;

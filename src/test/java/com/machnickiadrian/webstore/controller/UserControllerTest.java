@@ -1,11 +1,11 @@
 package com.machnickiadrian.webstore.controller;
 
 
-import com.machnickiadrian.webstore.dto.UserProfileDto;
-import com.machnickiadrian.webstore.dto.UserRegisterDto;
-import com.machnickiadrian.webstore.service.BookService;
-import com.machnickiadrian.webstore.service.OrderService;
-import com.machnickiadrian.webstore.service.UserService;
+import com.machnickiadrian.webstore.book.BookService;
+import com.machnickiadrian.webstore.order.entity.OrderService;
+import com.machnickiadrian.webstore.user.UserService;
+import com.machnickiadrian.webstore.user.dto.UserProfileDto;
+import com.machnickiadrian.webstore.user.dto.UserRegisterDto;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;

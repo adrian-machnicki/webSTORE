@@ -1,8 +1,8 @@
 package com.machnickiadrian.webstore.controller;
 
-import com.machnickiadrian.webstore.dto.OrderDto;
 import com.machnickiadrian.webstore.enums.AdminTab;
-import com.machnickiadrian.webstore.service.OrderService;
+import com.machnickiadrian.webstore.order.dto.OrderDto;
+import com.machnickiadrian.webstore.order.entity.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

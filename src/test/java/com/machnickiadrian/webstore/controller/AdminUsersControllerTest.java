@@ -1,7 +1,7 @@
 package com.machnickiadrian.webstore.controller;
 
-import com.machnickiadrian.webstore.dto.UserDto;
-import com.machnickiadrian.webstore.service.UserService;
+import com.machnickiadrian.webstore.user.UserService;
+import com.machnickiadrian.webstore.user.dto.UserDto;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;

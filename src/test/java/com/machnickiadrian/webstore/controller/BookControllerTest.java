@@ -1,10 +1,10 @@
 package com.machnickiadrian.webstore.controller;
 
-import com.machnickiadrian.webstore.dto.AuthorDto;
-import com.machnickiadrian.webstore.dto.BookDetailsDto;
-import com.machnickiadrian.webstore.dto.BookDto;
+import com.machnickiadrian.webstore.book.BookService;
+import com.machnickiadrian.webstore.book.dto.AuthorDto;
+import com.machnickiadrian.webstore.book.dto.BookDetailsDto;
+import com.machnickiadrian.webstore.book.dto.BookDto;
 import com.machnickiadrian.webstore.model.Cart;
-import com.machnickiadrian.webstore.service.BookService;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;

@@ -1,6 +1,6 @@
 package com.machnickiadrian.webstore.model;
 
-import com.machnickiadrian.webstore.dto.BookDto;
+import com.machnickiadrian.webstore.book.dto.BookDto;
 import lombok.Getter;
 import lombok.Setter;
 

@@ -1,12 +1,16 @@
 package com.machnickiadrian.webstore.controller;
 
-import com.machnickiadrian.webstore.dto.*;
+import com.machnickiadrian.webstore.book.BookService;
+import com.machnickiadrian.webstore.book.dto.BookDto;
 import com.machnickiadrian.webstore.enums.NavbarTab;
-import com.machnickiadrian.webstore.exception.EmailExistsException;
-import com.machnickiadrian.webstore.exception.UsernameExistsException;
-import com.machnickiadrian.webstore.service.BookService;
-import com.machnickiadrian.webstore.service.OrderService;
-import com.machnickiadrian.webstore.service.UserService;
+import com.machnickiadrian.webstore.order.dto.OrderDto;
+import com.machnickiadrian.webstore.order.entity.OrderService;
+import com.machnickiadrian.webstore.user.UserService;
+import com.machnickiadrian.webstore.user.dto.UserDto;
+import com.machnickiadrian.webstore.user.dto.UserProfileDto;
+import com.machnickiadrian.webstore.user.dto.UserRegisterDto;
+import com.machnickiadrian.webstore.user.exception.EmailExistsException;
+import com.machnickiadrian.webstore.user.exception.UsernameExistsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

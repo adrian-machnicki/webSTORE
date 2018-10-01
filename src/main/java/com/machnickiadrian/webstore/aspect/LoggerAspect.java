@@ -1,9 +1,9 @@
 package com.machnickiadrian.webstore.aspect;
 
-import com.machnickiadrian.webstore.dto.UserDto;
-import com.machnickiadrian.webstore.entity.Order;
-import com.machnickiadrian.webstore.service.OrderService;
-import com.machnickiadrian.webstore.service.UserService;
+import com.machnickiadrian.webstore.order.entity.Order;
+import com.machnickiadrian.webstore.order.entity.OrderService;
+import com.machnickiadrian.webstore.user.UserService;
+import com.machnickiadrian.webstore.user.dto.UserDto;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Around;
@@ -30,7 +30,7 @@ public class LoggerAspect {
 
     private static final DecimalFormat doubleFormatter = new DecimalFormat("#0.00");
 
-    @Around("execution(* com.machnickiadrian.webstore.service.UserServiceImpl.registerNewUser(com.machnickiadrian.webstore.dto.UserDto)) "
+    @Around("execution(* com.machnickiadrian.webstore.user.UserServiceImpl.registerNewUser(com.machnickiadrian.webstore.user.dto.UserDto)) "
             + "&& args(userDto)")
     public void logNewUser(ProceedingJoinPoint pjp, UserDto userDto) throws Throwable {
         pjp.proceed();
@@ -38,14 +38,14 @@ public class LoggerAspect {
         USER_SERVICE_LOGGER.log(Level.INFO, message);
     }
 
-    @AfterReturning("execution(* com.machnickiadrian.webstore.service.OrderServiceImpl.save(com.machnickiadrian.webstore.entity.Order)) "
+    @AfterReturning("execution(* com.machnickiadrian.webstore.order.entity.OrderServiceImpl.save(com.machnickiadrian.webstore.order.entity.Order)) "
             + "&& args(order)")
     public void logNewOrder(Order order) {
         String message = getNewOrderMessage(order);
         ORDER_SERVICE_LOGGER.log(Level.INFO, message);
     }
 
-    @AfterReturning("execution(* com.machnickiadrian.webstore.service.UserServiceImpl.deleteById(java.lang.Long)) "
+    @AfterReturning("execution(* com.machnickiadrian.webstore.user.UserServiceImpl.deleteById(java.lang.Long)) "
             + "&& args(id)")
     public void logDeletingUser(Long id) {
         String message = getDeletedUserMessage(id);

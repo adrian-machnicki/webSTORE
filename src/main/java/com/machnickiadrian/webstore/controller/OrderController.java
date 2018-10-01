@@ -1,12 +1,12 @@
 package com.machnickiadrian.webstore.controller;
 
-import com.machnickiadrian.webstore.dto.OrderDto;
-import com.machnickiadrian.webstore.dto.ShippingDetailsDto;
-import com.machnickiadrian.webstore.dto.UserDto;
-import com.machnickiadrian.webstore.dto.UserProfileDto;
 import com.machnickiadrian.webstore.model.Cart;
-import com.machnickiadrian.webstore.service.OrderService;
-import com.machnickiadrian.webstore.service.UserService;
+import com.machnickiadrian.webstore.order.dto.OrderDto;
+import com.machnickiadrian.webstore.order.dto.ShippingDetailsDto;
+import com.machnickiadrian.webstore.order.entity.OrderService;
+import com.machnickiadrian.webstore.user.UserService;
+import com.machnickiadrian.webstore.user.dto.UserDto;
+import com.machnickiadrian.webstore.user.dto.UserProfileDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

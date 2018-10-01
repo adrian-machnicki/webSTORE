@@ -1,6 +1,12 @@
 package com.machnickiadrian.webstore.service;
 
-import com.machnickiadrian.webstore.dto.*;
+import com.machnickiadrian.webstore.email.EmailService;
+import com.machnickiadrian.webstore.email.EmailServiceImpl;
+import com.machnickiadrian.webstore.order.dto.OrderDto;
+import com.machnickiadrian.webstore.order.dto.OrderRecordDto;
+import com.machnickiadrian.webstore.order.dto.ShippingDetailsDto;
+import com.machnickiadrian.webstore.user.dto.UserDto;
+import com.machnickiadrian.webstore.user.dto.UserRegisterDto;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;

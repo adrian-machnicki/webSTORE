@@ -1,6 +1,6 @@
 package com.machnickiadrian.webstore.controller;
 
-import com.machnickiadrian.webstore.exception.BookNotFoundException;
+import com.machnickiadrian.webstore.book.exception.BookNotFoundException;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.ui.ExtendedModelMap;

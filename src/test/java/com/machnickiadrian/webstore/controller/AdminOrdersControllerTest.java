@@ -1,7 +1,7 @@
 package com.machnickiadrian.webstore.controller;
 
-import com.machnickiadrian.webstore.dto.OrderDto;
-import com.machnickiadrian.webstore.service.OrderService;
+import com.machnickiadrian.webstore.order.dto.OrderDto;
+import com.machnickiadrian.webstore.order.entity.OrderService;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;

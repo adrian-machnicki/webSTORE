@@ -1,9 +1,9 @@
 package com.machnickiadrian.webstore.controller;
 
-import com.machnickiadrian.webstore.dto.AuthorDto;
-import com.machnickiadrian.webstore.dto.BookDto;
+import com.machnickiadrian.webstore.book.BookService;
+import com.machnickiadrian.webstore.book.dto.AuthorDto;
+import com.machnickiadrian.webstore.book.dto.BookDto;
 import com.machnickiadrian.webstore.enums.AdminTab;
-import com.machnickiadrian.webstore.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

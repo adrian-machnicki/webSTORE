@@ -1,17 +1,20 @@
 package com.machnickiadrian.webstore.service;
 
-import com.machnickiadrian.webstore.converter.UserRegisterDtoToUserConverter;
-import com.machnickiadrian.webstore.converter.UserToUserDtoConverter;
-import com.machnickiadrian.webstore.dto.UserDetailsDto;
-import com.machnickiadrian.webstore.dto.UserDto;
-import com.machnickiadrian.webstore.dto.UserProfileDto;
-import com.machnickiadrian.webstore.dto.UserRegisterDto;
-import com.machnickiadrian.webstore.entity.Role;
-import com.machnickiadrian.webstore.entity.User;
-import com.machnickiadrian.webstore.exception.EmailExistsException;
-import com.machnickiadrian.webstore.exception.UsernameExistsException;
-import com.machnickiadrian.webstore.repository.RoleRepository;
-import com.machnickiadrian.webstore.repository.UserRepository;
+import com.machnickiadrian.webstore.email.EmailService;
+import com.machnickiadrian.webstore.user.RoleRepository;
+import com.machnickiadrian.webstore.user.UserRepository;
+import com.machnickiadrian.webstore.user.UserService;
+import com.machnickiadrian.webstore.user.UserServiceImpl;
+import com.machnickiadrian.webstore.user.dto.UserDetailsDto;
+import com.machnickiadrian.webstore.user.dto.UserDto;
+import com.machnickiadrian.webstore.user.dto.UserProfileDto;
+import com.machnickiadrian.webstore.user.dto.UserRegisterDto;
+import com.machnickiadrian.webstore.user.entity.Role;
+import com.machnickiadrian.webstore.user.entity.User;
+import com.machnickiadrian.webstore.user.exception.EmailExistsException;
+import com.machnickiadrian.webstore.user.exception.UsernameExistsException;
+import com.machnickiadrian.webstore.user.mapper.UserRegisterDtoToUserMapper;
+import com.machnickiadrian.webstore.user.mapper.UserToUserDtoMapper;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -50,10 +53,10 @@ public class UserServiceImplTest {
     BCryptPasswordEncoder bCryptPasswordEncoderMock;
 
     @Mock
-    UserRegisterDtoToUserConverter userRegisterDtoToUserConverterMock;
+    UserRegisterDtoToUserMapper userRegisterDtoToUserMapperMock;
 
     @Mock
-    UserToUserDtoConverter userToUserDtoConverterMock;
+    UserToUserDtoMapper userToUserDtoMapperMock;
 
     @Rule
     public MockitoRule mockitoRule = MockitoJUnit.rule();
@@ -61,7 +64,7 @@ public class UserServiceImplTest {
     @Before
     public void setUp() throws Exception {
         userService = new UserServiceImpl(userRepositoryMock, roleRepositoryMock, emailServiceMock,
-                bCryptPasswordEncoderMock, userRegisterDtoToUserConverterMock, userToUserDtoConverterMock);
+                bCryptPasswordEncoderMock, userRegisterDtoToUserMapperMock, userToUserDtoMapperMock);
     }
 
     @Test(expected = EmailExistsException.class)
@@ -124,7 +127,7 @@ public class UserServiceImplTest {
                 .willReturn(null);
         given(userRepositoryMock.findByUsername(username))
                 .willReturn(null);
-        given(userRegisterDtoToUserConverterMock.convert(dto))
+        given(userRegisterDtoToUserMapperMock.convert(dto))
                 .willReturn(new User());
 
         // when
@@ -149,7 +152,7 @@ public class UserServiceImplTest {
 
         given(userRepositoryMock.findById(id))
                 .willReturn(user);
-        given(userToUserDtoConverterMock.convert(user))
+        given(userToUserDtoMapperMock.convert(user))
                 .willReturn(userDto);
 
         // when
@@ -159,7 +162,7 @@ public class UserServiceImplTest {
         assertNotNull("Should return userDto object", actualUser);
         verify(userRepositoryMock, times(1))
                 .findById(id);
-        verify(userToUserDtoConverterMock, times(1))
+        verify(userToUserDtoMapperMock, times(1))
                 .convert(user);
     }
 
@@ -174,7 +177,7 @@ public class UserServiceImplTest {
 
         given(userRepositoryMock.findByUsername(username))
                 .willReturn(user);
-        given(userToUserDtoConverterMock.convert(user))
+        given(userToUserDtoMapperMock.convert(user))
                 .willReturn(userDto);
 
         // when
@@ -184,7 +187,7 @@ public class UserServiceImplTest {
         assertNotNull("Should return userDto object", actualUser);
         verify(userRepositoryMock, times(1))
                 .findByUsername(username);
-        verify(userToUserDtoConverterMock, times(1))
+        verify(userToUserDtoMapperMock, times(1))
                 .convert(user);
     }
 
@@ -199,7 +202,7 @@ public class UserServiceImplTest {
 
         given(userRepositoryMock.findByEmail(email))
                 .willReturn(user);
-        given(userToUserDtoConverterMock.convert(user))
+        given(userToUserDtoMapperMock.convert(user))
                 .willReturn(userDto);
 
         // when
@@ -209,7 +212,7 @@ public class UserServiceImplTest {
         assertNotNull("Should return userDto object", actualUser);
         verify(userRepositoryMock, times(1))
                 .findByEmail(email);
-        verify(userToUserDtoConverterMock, times(1))
+        verify(userToUserDtoMapperMock, times(1))
                 .convert(user);
     }
 
@@ -223,9 +226,9 @@ public class UserServiceImplTest {
 
         given(userRepositoryMock.findAll())
                 .willReturn(Arrays.asList(user1, user2));
-        given(userToUserDtoConverterMock.convert(user1))
+        given(userToUserDtoMapperMock.convert(user1))
                 .willReturn(userDto1);
-        given(userToUserDtoConverterMock.convert(user2))
+        given(userToUserDtoMapperMock.convert(user2))
                 .willReturn(userDto2);
 
         // when
@@ -235,7 +238,7 @@ public class UserServiceImplTest {
         assertEquals("Should return list containing two users", 2, actualUsers.size());
         verify(userRepositoryMock, times(1))
                 .findAll();
-        verify(userToUserDtoConverterMock, times(2))
+        verify(userToUserDtoMapperMock, times(2))
                 .convert(any(User.class));
     }
 
@@ -325,9 +328,9 @@ public class UserServiceImplTest {
 
         given(userRepositoryMock.findAll())
                 .willReturn(Arrays.asList(user1, user2));
-        given(userToUserDtoConverterMock.convert(user1))
+        given(userToUserDtoMapperMock.convert(user1))
                 .willReturn(userDto1);
-        given(userToUserDtoConverterMock.convert(user2))
+        given(userToUserDtoMapperMock.convert(user2))
                 .willReturn(userDto2);
 
         // when
@@ -337,7 +340,7 @@ public class UserServiceImplTest {
         assertEquals("Should return list containing one user", 1, actualUsers.size());
         verify(userRepositoryMock, times(1))
                 .findAll();
-        verify(userToUserDtoConverterMock, times(2))
+        verify(userToUserDtoMapperMock, times(2))
                 .convert(any(User.class));
     }
 }

@@ -1,13 +1,16 @@
 package com.machnickiadrian.webstore.service;
 
-import com.machnickiadrian.webstore.converter.OrderDtoToOrderConverter;
-import com.machnickiadrian.webstore.converter.OrderToOrderDtoConverter;
-import com.machnickiadrian.webstore.dto.OrderDto;
-import com.machnickiadrian.webstore.dto.ShippingDetailsDto;
-import com.machnickiadrian.webstore.dto.UserDetailsDto;
-import com.machnickiadrian.webstore.dto.UserDto;
-import com.machnickiadrian.webstore.entity.Order;
-import com.machnickiadrian.webstore.repository.OrderRepository;
+import com.machnickiadrian.webstore.email.EmailService;
+import com.machnickiadrian.webstore.order.OrderRepository;
+import com.machnickiadrian.webstore.order.dto.OrderDto;
+import com.machnickiadrian.webstore.order.dto.ShippingDetailsDto;
+import com.machnickiadrian.webstore.order.entity.Order;
+import com.machnickiadrian.webstore.order.entity.OrderService;
+import com.machnickiadrian.webstore.order.entity.OrderServiceImpl;
+import com.machnickiadrian.webstore.order.mapper.OrderDtoToOrderMapper;
+import com.machnickiadrian.webstore.order.mapper.OrderToOrderDtoMapper;
+import com.machnickiadrian.webstore.user.dto.UserDetailsDto;
+import com.machnickiadrian.webstore.user.dto.UserDto;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -39,10 +42,10 @@ public class OrderServiceImplTest {
     EmailService emailServiceMock;
 
     @Mock
-    OrderToOrderDtoConverter orderToOrderDtoConverterMock;
+    OrderToOrderDtoMapper orderToOrderDtoMapperMock;
 
     @Mock
-    OrderDtoToOrderConverter orderDtoToOrderConverterMock;
+    OrderDtoToOrderMapper orderDtoToOrderMapperMock;
 
     @Rule
     public MockitoRule mockitoRule = MockitoJUnit.rule();
@@ -50,7 +53,7 @@ public class OrderServiceImplTest {
     @Before
     public void setUp() throws Exception {
         orderService = new OrderServiceImpl(orderRepositoryMock, emailServiceMock,
-                orderToOrderDtoConverterMock, orderDtoToOrderConverterMock);
+                orderToOrderDtoMapperMock, orderDtoToOrderMapperMock);
     }
 
     @Test
@@ -63,7 +66,7 @@ public class OrderServiceImplTest {
         orderDto.setId(id);
         given(orderRepositoryMock.findById(id))
                 .willReturn(order);
-        given(orderToOrderDtoConverterMock.convert(order))
+        given(orderToOrderDtoMapperMock.convert(order))
                 .willReturn(orderDto);
 
         // when
@@ -73,7 +76,7 @@ public class OrderServiceImplTest {
         assertNotNull("Should return order object", actualOrder);
         verify(orderRepositoryMock, times(1))
                 .findById(id);
-        verify(orderToOrderDtoConverterMock, times(1))
+        verify(orderToOrderDtoMapperMock, times(1))
                 .convert(order);
     }
 
@@ -86,9 +89,9 @@ public class OrderServiceImplTest {
         List<Order> orders = new ArrayList<>(Arrays.asList(order1, order2));
         given(orderRepositoryMock.findAll())
                 .willReturn(orders);
-        given(orderToOrderDtoConverterMock.convert(order1))
+        given(orderToOrderDtoMapperMock.convert(order1))
                 .willReturn(orderDto);
-        given(orderToOrderDtoConverterMock.convert(order2))
+        given(orderToOrderDtoMapperMock.convert(order2))
                 .willReturn(orderDto);
 
         // when
@@ -98,7 +101,7 @@ public class OrderServiceImplTest {
         assertEquals("Should return list containing 2 orders", 2, actualOrders.size());
         verify(orderRepositoryMock, times(1))
                 .findAll();
-        verify(orderToOrderDtoConverterMock, times(2)).convert(any(Order.class));
+        verify(orderToOrderDtoMapperMock, times(2)).convert(any(Order.class));
     }
 
     @Test
@@ -111,9 +114,9 @@ public class OrderServiceImplTest {
         List<Order> orders = new ArrayList<>(Arrays.asList(order1, order2));
         given(orderRepositoryMock.findAllByUserUsername(username))
                 .willReturn(orders);
-        given(orderToOrderDtoConverterMock.convert(order1))
+        given(orderToOrderDtoMapperMock.convert(order1))
                 .willReturn(orderDto);
-        given(orderToOrderDtoConverterMock.convert(order2))
+        given(orderToOrderDtoMapperMock.convert(order2))
                 .willReturn(orderDto);
 
         // when
@@ -123,7 +126,7 @@ public class OrderServiceImplTest {
         assertEquals("Should return list containing 2 orders", 2, actualOrders.size());
         verify(orderRepositoryMock, times(1))
                 .findAllByUserUsername(username);
-        verify(orderToOrderDtoConverterMock, times(2)).convert(any(Order.class));
+        verify(orderToOrderDtoMapperMock, times(2)).convert(any(Order.class));
     }
 
     @Test
@@ -131,14 +134,14 @@ public class OrderServiceImplTest {
         // given
         OrderDto orderDto = new OrderDto();
         Order order = new Order();
-        given(orderDtoToOrderConverterMock.convert(orderDto))
+        given(orderDtoToOrderMapperMock.convert(orderDto))
                 .willReturn(order);
 
         // when
         orderService.save(orderDto);
 
         // then
-        verify(orderDtoToOrderConverterMock, times(1)).convert(orderDto);
+        verify(orderDtoToOrderMapperMock, times(1)).convert(orderDto);
         verify(orderRepositoryMock, times(1)).save(order);
         verify(emailServiceMock, times(1)).sendOrderConfirmation(orderDto);
     }
@@ -190,11 +193,11 @@ public class OrderServiceImplTest {
 
         given(orderRepositoryMock.findAll())
                 .willReturn(orders);
-        given(orderToOrderDtoConverterMock.convert(orders.get(0)))
+        given(orderToOrderDtoMapperMock.convert(orders.get(0)))
                 .willReturn(orderDto0);
-        given(orderToOrderDtoConverterMock.convert(orders.get(1)))
+        given(orderToOrderDtoMapperMock.convert(orders.get(1)))
                 .willReturn(orderDto1);
-        given(orderToOrderDtoConverterMock.convert(orders.get(2)))
+        given(orderToOrderDtoMapperMock.convert(orders.get(2)))
                 .willReturn(orderDto2);
 
         // when
@@ -204,7 +207,7 @@ public class OrderServiceImplTest {
         assertEquals("Should return list containing 1 order", 1, actualOrders.size());
         verify(orderRepositoryMock, times(1))
                 .findAll();
-        verify(orderToOrderDtoConverterMock, times(3))
+        verify(orderToOrderDtoMapperMock, times(3))
                 .convert(any(Order.class));
     }
 

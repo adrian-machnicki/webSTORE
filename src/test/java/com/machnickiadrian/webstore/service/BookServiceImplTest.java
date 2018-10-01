@@ -1,15 +1,18 @@
 package com.machnickiadrian.webstore.service;
 
-import com.machnickiadrian.webstore.converter.BookDtoToBookConverter;
-import com.machnickiadrian.webstore.converter.BookToBookDtoConverter;
-import com.machnickiadrian.webstore.dto.AuthorDto;
-import com.machnickiadrian.webstore.dto.BookDto;
-import com.machnickiadrian.webstore.dto.OrderDto;
-import com.machnickiadrian.webstore.dto.OrderRecordDto;
-import com.machnickiadrian.webstore.entity.Author;
-import com.machnickiadrian.webstore.entity.Book;
-import com.machnickiadrian.webstore.exception.BookNotFoundException;
-import com.machnickiadrian.webstore.repository.BookRepository;
+import com.machnickiadrian.webstore.book.BookRepository;
+import com.machnickiadrian.webstore.book.BookService;
+import com.machnickiadrian.webstore.book.BookServiceImpl;
+import com.machnickiadrian.webstore.book.dto.AuthorDto;
+import com.machnickiadrian.webstore.book.dto.BookDto;
+import com.machnickiadrian.webstore.book.entity.Author;
+import com.machnickiadrian.webstore.book.entity.Book;
+import com.machnickiadrian.webstore.book.exception.BookNotFoundException;
+import com.machnickiadrian.webstore.book.mapper.BookDtoToBookMapper;
+import com.machnickiadrian.webstore.book.mapper.BookToBookDtoMapper;
+import com.machnickiadrian.webstore.order.dto.OrderDto;
+import com.machnickiadrian.webstore.order.dto.OrderRecordDto;
+import com.machnickiadrian.webstore.order.entity.OrderService;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -44,10 +47,10 @@ public class BookServiceImplTest {
     OrderService orderServiceMock;
 
     @Mock
-    BookToBookDtoConverter bookToBookDtoConverterMock;
+    BookToBookDtoMapper bookToBookDtoMapperMock;
 
     @Mock
-    BookDtoToBookConverter bookDtoToBookConverterMock;
+    BookDtoToBookMapper bookDtoToBookMapperMock;
 
     @Rule
     public MockitoRule mockitoRule = MockitoJUnit.rule();
@@ -55,7 +58,7 @@ public class BookServiceImplTest {
     @Before
     public void setUp() {
         bookService = new BookServiceImpl(bookRepositoryMock, orderServiceMock,
-                bookToBookDtoConverterMock, bookDtoToBookConverterMock);
+                bookToBookDtoMapperMock, bookDtoToBookMapperMock);
     }
 
     @Test
@@ -69,7 +72,7 @@ public class BookServiceImplTest {
 
         given(bookRepositoryMock.findById(id))
                 .willReturn(Optional.of(book));
-        given(bookToBookDtoConverterMock.convert(book))
+        given(bookToBookDtoMapperMock.convert(book))
                 .willReturn(expectedBook);
 
         // when
@@ -79,7 +82,7 @@ public class BookServiceImplTest {
         assertEquals("Book id should be 1", expectedBook.getId(), actualBook.getId());
         verify(bookRepositoryMock, times(1))
                 .findById(anyLong());
-        verify(bookToBookDtoConverterMock, times(1))
+        verify(bookToBookDtoMapperMock, times(1))
                 .convert(any(Book.class));
     }
 
@@ -97,7 +100,7 @@ public class BookServiceImplTest {
         // BookNotFoundException expected
         verify(bookRepositoryMock, times(1))
                 .findById(anyLong());
-        verify(bookToBookDtoConverterMock, never())
+        verify(bookToBookDtoMapperMock, never())
                 .convert(any(Book.class));
     }
 
@@ -116,9 +119,9 @@ public class BookServiceImplTest {
 
         given(bookRepositoryMock.findAll())
                 .willReturn(Arrays.asList(book1, book2));
-        given(bookToBookDtoConverterMock.convert(book1))
+        given(bookToBookDtoMapperMock.convert(book1))
                 .willReturn(bookDto1);
-        given(bookToBookDtoConverterMock.convert(book2))
+        given(bookToBookDtoMapperMock.convert(book2))
                 .willReturn(bookDto2);
 
         // when
@@ -128,7 +131,7 @@ public class BookServiceImplTest {
         assertEquals("List containing two books should be returned", 2, actualBooks.size());
         verify(bookRepositoryMock, times(1))
                 .findAll();
-        verify(bookToBookDtoConverterMock, times(2))
+        verify(bookToBookDtoMapperMock, times(2))
                 .convert(any(Book.class));
     }
 
@@ -149,9 +152,9 @@ public class BookServiceImplTest {
 
         given(bookRepositoryMock.findAll(PageRequest.of(page, size)))
                 .willReturn(new PageImpl<>(Arrays.asList(book1, book2)));
-        given(bookToBookDtoConverterMock.convert(book1))
+        given(bookToBookDtoMapperMock.convert(book1))
                 .willReturn(bookDto1);
-        given(bookToBookDtoConverterMock.convert(book2))
+        given(bookToBookDtoMapperMock.convert(book2))
                 .willReturn(bookDto2);
 
         // when
@@ -161,7 +164,7 @@ public class BookServiceImplTest {
         assertEquals("List containing two books should be returned", 2, actualBooks.size());
         verify(bookRepositoryMock, times(1))
                 .findAll(any(PageRequest.class));
-        verify(bookToBookDtoConverterMock, times(2))
+        verify(bookToBookDtoMapperMock, times(2))
                 .convert(any(Book.class));
     }
 
@@ -186,14 +189,14 @@ public class BookServiceImplTest {
     public void save_test() {
         // given
         BookDto bookDto = new BookDto();
-        given(bookDtoToBookConverterMock.convert(bookDto))
+        given(bookDtoToBookMapperMock.convert(bookDto))
                 .willReturn(new Book());
 
         // when
         bookService.save(bookDto);
 
         // then
-        verify(bookDtoToBookConverterMock, times(1))
+        verify(bookDtoToBookMapperMock, times(1))
                 .convert(any(BookDto.class));
         verify(bookRepositoryMock, times(1))
                 .save(any(Book.class));
@@ -233,9 +236,9 @@ public class BookServiceImplTest {
 
         given(bookRepositoryMock.findAll())
                 .willReturn(Arrays.asList(book1, book2));
-        given(bookToBookDtoConverterMock.convert(book1))
+        given(bookToBookDtoMapperMock.convert(book1))
                 .willReturn(bookDto1);
-        given(bookToBookDtoConverterMock.convert(book2))
+        given(bookToBookDtoMapperMock.convert(book2))
                 .willReturn(bookDto2);
 
         // when
@@ -245,7 +248,7 @@ public class BookServiceImplTest {
         assertEquals("List should contain 1 book", 1, actualBooks.size());
         verify(bookRepositoryMock, times(1))
                 .findAll();
-        verify(bookToBookDtoConverterMock, times(2))
+        verify(bookToBookDtoMapperMock, times(2))
                 .convert(any(Book.class));
     }
 
